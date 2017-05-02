@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">SaluDate</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="one">ONE</string>
+    <string name="three">THREE</string>
+    <string name="two">TWO</string>
+    <string name="title_activity_menu_principal">Menú Principal</string>
+    <string name="title_activity_ficha_medica">Ficha Médica</string>
+    <string name="title_first_tab">CITAS PENDIENTES</string>
+    <string name="title_second_tab">HISTORIAL DE CITAS</string>
+    <string name="btn_menu_principal">Menú Principal</string>
+
+    <string name="hello_world">Hello world!</string>
+
+
+</resources>

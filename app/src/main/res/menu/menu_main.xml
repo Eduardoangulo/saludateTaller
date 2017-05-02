@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/icon_ficha_medica"
+        android:title="@string/title_activity_ficha_medica"
+        android:icon="@mipmap/ic_ficha_medica"
+        app:showAsAction="ifRoom">
+    </item>
+
+</menu>
