@@ -9,7 +9,7 @@
         android:theme="@style/MyMaterialTheme" >
         <activity
             android:name="info.androidhive.saluDate.activity.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,9 +21,15 @@
             android:label="@string/title_activity_menu_principal"
             android:parentActivityName="info.androidhive.saluDate.activity.MainActivity">
         </activity>
+
         <activity
             android:name="info.androidhive.saluDate.activity.FichaMedicaActivity"
             android:label="@string/title_activity_ficha_medica"
+            android:parentActivityName="info.androidhive.saluDate.activity.MenuPrincipalActivity">
+        </activity>
+        <activity
+            android:name="info.androidhive.saluDate.activity.NuevaCitaActivity"
+            android:label="@string/title_activity_nueva_cita"
             android:parentActivityName="info.androidhive.saluDate.activity.MenuPrincipalActivity">
         </activity>
     </application>

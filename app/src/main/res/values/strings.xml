@@ -3,16 +3,27 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="one">ONE</string>
-    <string name="three">THREE</string>
-    <string name="two">TWO</string>
+    <string name="one">En desarrollo</string>
+    <string name="three">En desarrollo</string>
+    <string name="two">En desarrollo</string>
+
     <string name="title_activity_menu_principal">Menú Principal</string>
+    <string name="title_activity_nueva_cita">Nueva Cita</string>
     <string name="title_activity_ficha_medica">Ficha Médica</string>
     <string name="title_first_tab">CITAS PENDIENTES</string>
     <string name="title_second_tab">HISTORIAL DE CITAS</string>
+
+
     <string name="btn_menu_principal">Menú Principal</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="usuario">user</string>
+    <string name="password">******</string>
+    <string name="OlvContra"><u>Olvidé mi contraseña</u></string>
+    <string name="iniciarSesion">INICIAR SESIÓN</string>
 
+    <string name="login_succesful">Bienvenido a SaluDate</string>
+
+    <string name="snackbar_menuprincipal">Agregar nueva cita</string>
+    <string name="toast_fichamedica">Ficha Médica</string>
 
 </resources>

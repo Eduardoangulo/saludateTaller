@@ -17,14 +17,97 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </android.support.design.widget.AppBarLayout>
 
-        <Button
-            android:id="@+id/btn_menu_principal"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/logoSaludD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical|center"
-            android:text="@string/btn_menu_principal"
-            android:textSize="15sp" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="104dp"
+            app:srcCompat="@drawable/saludate_logo_400x100" />
 
+        <EditText
+            android:id="@+id/edtxtUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/imageView8"
+            android:layout_alignEnd="@+id/logoSaludD"
+            android:layout_alignLeft="@+id/logoSaludD"
+            android:layout_alignRight="@+id/logoSaludD"
+            android:layout_alignStart="@+id/logoSaludD"
+            android:layout_marginBottom="29dp"
+            android:ems="10"
+            android:hint="@string/usuario"
+            android:inputType="textPersonName" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/edtxtPass"
+            android:layout_alignRight="@+id/edtxtPass"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="11dp"
+            android:layout_marginRight="11dp"
+            app:srcCompat="@drawable/lock_fill" />
+
+        <EditText
+            android:id="@+id/edtxtPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/edtxtUser"
+            android:layout_alignLeft="@+id/edtxtUser"
+            android:layout_alignRight="@+id/edtxtUser"
+            android:layout_alignStart="@+id/edtxtUser"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword" />
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/imageView8"
+            android:layout_alignStart="@+id/imageView8"
+            android:layout_alignTop="@+id/edtxtUser"
+            android:layout_marginTop="10dp"
+            app:srcCompat="@drawable/user4" />
+
+        <TextView
+            android:id="@+id/txtOvidarContra"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/edtxtPass"
+            android:layout_alignRight="@+id/edtxtPass"
+            android:layout_below="@+id/edtxtPass"
+            android:layout_marginTop="13dp"
+            android:autoLink="all"
+            android:clickable="true"
+            android:text="@string/OlvContra"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/btnIniciarSesion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/txtOvidarContra"
+            android:layout_alignLeft="@+id/edtxtPass"
+            android:layout_alignRight="@+id/txtOvidarContra"
+            android:layout_alignStart="@+id/edtxtPass"
+            android:layout_below="@+id/txtOvidarContra"
+            android:layout_marginTop="69dp"
+            android:background="@android:drawable/button_onoff_indicator_off"
+            android:backgroundTint="@color/textColorPrimary"
+            android:text="@string/iniciarSesion"
+            android:textColor="@color/colorAccent" />
+
+
+    </RelativeLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

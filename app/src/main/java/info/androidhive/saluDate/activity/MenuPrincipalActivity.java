@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +52,9 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Agregar nueva cita", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.snackbar_menuprincipal),Toast.LENGTH_LONG);
+                startActivity(new Intent(MenuPrincipalActivity.this, NuevaCitaActivity.class));
+
             }
         });
     }
@@ -102,6 +104,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.icon_ficha_medica:
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_fichamedica),Toast.LENGTH_LONG);
                 startActivity(new Intent(MenuPrincipalActivity.this, FichaMedicaActivity.class));
                 return true;
             default:
