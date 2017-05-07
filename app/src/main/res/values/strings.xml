@@ -7,7 +7,7 @@
     <string name="three">En desarrollo</string>
     <string name="two">En desarrollo</string>
 
-    <string name="title_activity_menu_principal">Menú Principal</string>
+    <string name="title_activity_menu_principal">SaluDate</string>
     <string name="title_activity_nueva_cita">Nueva Cita</string>
     <string name="title_activity_ficha_medica">Ficha Médica</string>
     <string name="title_first_tab">CITAS PENDIENTES</string>
@@ -25,5 +25,7 @@
 
     <string name="snackbar_menuprincipal">Agregar nueva cita</string>
     <string name="toast_fichamedica">Ficha Médica</string>
+
+    <string name="textView_nuevaCita">Programar Cita</string>
 
 </resources>
