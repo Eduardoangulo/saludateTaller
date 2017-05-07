@@ -24,19 +24,20 @@ public class appointmentAdapter extends ArrayAdapter<appointment> {
     public View getView(int position, View convertView, ViewGroup parent) {
             View listItemView = convertView;
             if (listItemView == null) {
-                listItemView = LayoutInflater.from(getContext()).inflate(
-                        r, parent, false);
+                listItemView = LayoutInflater.from(getContext()).inflate(r, parent, false);
             }
             appointment currentAppointment = getItem(position);
+
             TextView specialty = (TextView) listItemView.findViewById(R.id.specialtyText);
             TextView doctorN = (TextView) listItemView.findViewById(R.id.doctorText);
             ImageView img = (ImageView) listItemView.findViewById(R.id.pimage);
+
             specialty.setText(currentAppointment.getSpecialty());
             doctorN.setText(currentAppointment.getDoctorName());
             img.setImageResource(currentAppointment.getImage());
 
             return listItemView;
 
-            }
+    }
 
 }

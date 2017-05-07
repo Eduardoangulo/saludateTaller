@@ -28,9 +28,11 @@ public class OneFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         ListView rootView= (ListView) view.findViewById(R.id.list);
+
         appointmentAdapter adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
         for(int i=0;i<20;i++)
             adapter1.add(new appointment(R.drawable.ic_tab_contacts, "Eduardo Angulo", "Urologia"));
+
         rootView.setAdapter(adapter1);
         return view;
     }
