@@ -4,12 +4,14 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
     >
 
     <ImageView
 
         android:id="@+id/pimage"
-        android:layout_height="70dp"
+        android:layout_height="56dp"
+        android:layout_margin="12dp"
         android:layout_width="0dp"
         android:scaleType="fitCenter"
         android:layout_weight="1"
@@ -21,55 +23,61 @@
         android:orientation="vertical"
         android:layout_weight="3"
         >
-        <TextView
-            android:id="@+id/doctorText"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:paddingTop="16dp"
-            android:paddingLeft="16dp"
-            android:text="Eduardo Angulo"
-            android:textAppearance="?android:textAppearanceMedium"
-            />
 
         <TextView
             android:id="@+id/specialtyText"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
+            android:gravity="bottom"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="8dp"
+            android:textStyle="bold"
             android:text="Urologia"
-            android:textAppearance="?android:textAppearanceMedium"
+            android:textAppearance="?android:textAppearanceLarge"
             />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1.5"
-        >
         <TextView
-            android:id="@+id/dateText"
+            android:id="@+id/doctorText"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:layout_width="match_parent"
-            android:paddingTop="16dp"
-            android:paddingLeft="16dp"
-            android:text="27/05/17"
+            android:paddingLeft="8dp"
+            android:text="Dr. Eduardo Angulo luna pizarro"
+            android:gravity="top"
             android:textAppearance="?android:textAppearanceMedium"
             />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:gravity="right|bottom"
+            android:paddingLeft="32dp"
+            android:paddingRight="16dp"
+            android:text="27/05/17"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/hourText"
-            android:layout_height="0dp"
-            android:layout_weight="1"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5"
+            android:gravity="right|top"
             android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:text="5:50am"
-            android:textAppearance="?android:textAppearanceMedium"
-            />
+            android:textAppearance="?android:textAppearanceMedium" />
     </LinearLayout>
 
 </LinearLayout>

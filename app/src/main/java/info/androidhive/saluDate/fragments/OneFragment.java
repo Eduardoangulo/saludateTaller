@@ -31,7 +31,7 @@ public class OneFragment extends Fragment{
 
         appointmentAdapter adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
         for(int i=0;i<100;i++)
-            adapter1.add(new appointment(R.drawable.ic_tab_contacts, "Eduardo Angulo", "Urologia"));
+            adapter1.add(new appointment(R.mipmap.cover1, "Eduardo Angulo", "Urologia"));
 
         rootView.setAdapter(adapter1);
         return view;

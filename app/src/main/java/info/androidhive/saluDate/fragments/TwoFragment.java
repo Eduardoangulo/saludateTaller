@@ -30,7 +30,7 @@ public class TwoFragment extends Fragment{
         ListView rootView= (ListView) view.findViewById(R.id.list);
         appointmentAdapter adapter=new appointmentAdapter(getActivity(), R.layout.list_appointment);
         for(int i=0;i<20;i++)
-            adapter.add(new appointment(R.drawable.ic_tab_contacts, "Eduardo Angulo", "Urologia"));
+            adapter.add(new appointment(R.mipmap.cover1, "Eduardo Angulo", "Urologia"));
         rootView.setAdapter(adapter);
         return view;
     }
