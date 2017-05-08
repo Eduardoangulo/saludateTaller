@@ -30,7 +30,7 @@ public class OneFragment extends Fragment{
         ListView rootView= (ListView) view.findViewById(R.id.list);
 
         appointmentAdapter adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
-        for(int i=0;i<20;i++)
+        for(int i=0;i<100;i++)
             adapter1.add(new appointment(R.drawable.ic_tab_contacts, "Eduardo Angulo", "Urologia"));
 
         rootView.setAdapter(adapter1);
