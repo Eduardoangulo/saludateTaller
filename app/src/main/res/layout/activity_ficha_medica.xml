@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,8 +10,7 @@
 
            <android.support.design.widget.AppBarLayout
                android:layout_width="match_parent"
-               android:layout_height="0dp"
-               android:layout_weight="1"
+               android:layout_height="wrap_content"
                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
                <android.support.v7.widget.Toolbar
@@ -26,7 +24,7 @@
 
            <LinearLayout
                android:layout_width="match_parent"
-               android:layout_height="0dp"
+               android:layout_height="wrap_content"
                android:layout_weight="8"
                android:orientation="vertical">
 
@@ -34,6 +32,8 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_weight="1"
+                   android:layout_marginRight="12dp"
+                   android:layout_marginLeft="12dp"
                    android:orientation="horizontal">
 
                    <ImageView
@@ -48,37 +48,34 @@
                        android:src="@mipmap/cover1" />
 
                    <LinearLayout
-                       android:layout_width="0dp"
+                       android:layout_width="wrap_content"
                        android:layout_height="match_parent"
-                       android:layout_weight="3"
-                       android:paddingTop="16dp"
-                       android:paddingBottom="16dp"
+                       android:layout_weight="1"
+                       android:layout_gravity="center"
+                       android:gravity="center"
                        android:orientation="vertical">
 
                        <TextView
                            android:id="@+id/textView2"
                            android:layout_width="match_parent"
-                           android:layout_height="0dp"
-                           android:layout_weight="1"
-                           android:textSize="24sp"
+                           android:layout_height="wrap_content"
+                           android:textSize="20sp"
                            android:layout_gravity="bottom"
                            android:gravity="bottom"
-                           android:text="Alex Torres Peredo"
+                           android:text="Luis Echenique Torres"
                            android:textAppearance="?android:textAppearanceMedium" />
 
                        <TextView
                            android:id="@+id/textView"
                            android:layout_width="match_parent"
-                           android:layout_height="0dp"
-                           android:layout_weight="0.5"
+                           android:layout_height="wrap_content"
                            android:textStyle="bold"
                            android:text="25 de marzo de 1995"
                            android:textAppearance="?android:textAppearanceSmall" />
 
                        <TextView
                            android:layout_width="match_parent"
-                           android:layout_height="0dp"
-                           android:layout_weight="0.5"
+                           android:layout_height="wrap_content"
                            android:text="Dona órganos"
                            android:textAppearance="?android:textAppearanceSmall" />
 
@@ -111,7 +108,7 @@
                    android:layout_weight="1"
                    android:gravity="center_vertical"
                    android:paddingLeft="32dp"
-                   android:text="200kg"
+                   android:text="200 kg."
                    android:textAppearance="?android:textAppearanceMedium" />
 
                <TextView
@@ -127,15 +124,13 @@
                    android:textStyle="bold" />
 
                <TextView
-
                    android:layout_width="match_parent"
                    android:layout_height="0dp"
                    android:layout_weight="1"
                    android:gravity="center_vertical"
                    android:paddingLeft="32dp"
-                   android:text="182 cm"
+                   android:text="182 cm."
                    android:textAppearance="?android:textAppearanceMedium" />
-
                <TextView
 
                    android:layout_width="match_parent"
@@ -170,8 +165,8 @@
                <LinearLayout
                    android:layout_height="0dp"
                    android:layout_weight="3"
-                   android:layout_marginLeft="40dp"
-                   android:layout_marginRight="40dp"
+                   android:layout_marginRight="12dp"
+                   android:layout_marginLeft="12dp"
                    android:layout_width="match_parent"
                    android:orientation="horizontal">
                    <TextView
@@ -179,17 +174,17 @@
                        android:layout_height="wrap_content"
                        android:textAppearance="?android:textAppearanceMedium"
                        android:padding="4dp"
+                       android:layout_weight="1"
                        android:layout_marginLeft="12dp"
                        android:layout_marginRight="12dp"
                        android:layout_marginTop="8dp"
                        android:layout_marginBottom="8dp"
                        android:text="@string/activar_notificaciones"/>
                    <Switch
+                       android:id="@+id/switch_info"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:padding="4dp"
-                       android:layout_marginLeft="24dp"
-                       android:layout_marginRight="24dp"
                        android:layout_marginTop="4dp"
                        android:layout_marginBottom="4dp"/>
                </LinearLayout>

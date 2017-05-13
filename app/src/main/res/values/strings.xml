@@ -27,7 +27,7 @@
     <string name="toast_fichamedica">Ficha Médica</string>
 
     <string name="textView_nuevaCita">Programar Cita</string>
-    <string name="activar_notificaciones">Activar Notificaciones</string>
+    <string name="activar_notificaciones">Activar notificaciones</string>
 
     <string-array name="especialidad_array">
         <item>Seleccione una especialidad</item>
@@ -57,4 +57,6 @@
         <item>06/05   2:00pm a 3:00pm</item>
 
     </string-array>
+    <string name="switch_info_true">Se activaron las notificaciones</string>
+    <string name="switch_info_false">Se desactivaron las notificaciones</string>
 </resources>
