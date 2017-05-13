@@ -54,7 +54,6 @@ public class MenuPrincipalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.snackbar_menuprincipal),Toast.LENGTH_LONG);
                 startActivity(new Intent(MenuPrincipalActivity.this, NuevaCitaActivity.class));
-
             }
         });
     }

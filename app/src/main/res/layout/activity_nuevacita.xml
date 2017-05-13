@@ -34,6 +34,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="50dp"
+                android:entries="@array/especialidad_array"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </Spinner>
@@ -49,6 +50,7 @@
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
                 android:layout_marginLeft="50dp"
+                android:entries="@array/doctor_array"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="50dp"
                 android:layout_width="match_parent"
@@ -68,6 +70,7 @@
                 android:layout_marginLeft="50dp"
                 android:layout_marginRight="50dp"
                 android:layout_marginTop="50dp"
+                android:entries="@array/horarios_array"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </Spinner>
@@ -81,6 +84,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/button_programar_cita"
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="@string/textView_nuevaCita"
