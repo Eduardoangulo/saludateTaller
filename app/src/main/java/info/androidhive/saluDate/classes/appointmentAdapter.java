@@ -32,9 +32,9 @@ public class appointmentAdapter extends ArrayAdapter<appointment> {
             TextView doctorN = (TextView) listItemView.findViewById(R.id.doctorText);
             ImageView img = (ImageView) listItemView.findViewById(R.id.pimage);
 
-            specialty.setText(currentAppointment.getSpecialty());
-            doctorN.setText(currentAppointment.getDoctorName());
-            img.setImageResource(currentAppointment.getImage());
+            specialty.setText(currentAppointment.getDoc().getSpecialty().getSpecialtyName());
+            doctorN.setText(currentAppointment.getDoc().getDoctorName());
+            img.setImageResource(currentAppointment.getDoc().getSpecialty().getImg());
 
             return listItemView;
 
