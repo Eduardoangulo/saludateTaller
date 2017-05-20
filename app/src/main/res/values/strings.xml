@@ -59,4 +59,6 @@
     </string-array>
     <string name="switch_info_true">Se activaron las notificaciones</string>
     <string name="switch_info_false">Se desactivaron las notificaciones</string>
+
+    <string name="datos_incorrectos">Usuario o contraseña incorrectos</string>
 </resources>
