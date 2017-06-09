@@ -7,7 +7,7 @@
     <string name="three">En desarrollo</string>
     <string name="two">En desarrollo</string>
 
-    <string name="title_activity_menu_principal">Menú Principal</string>
+    <string name="title_activity_menu_principal">SaluDate</string>
     <string name="title_activity_nueva_cita">Nueva Cita</string>
     <string name="title_activity_ficha_medica">Ficha Médica</string>
     <string name="title_first_tab">CITAS PENDIENTES</string>
@@ -26,4 +26,39 @@
     <string name="snackbar_menuprincipal">Agregar nueva cita</string>
     <string name="toast_fichamedica">Ficha Médica</string>
 
+    <string name="textView_nuevaCita">Programar Cita</string>
+    <string name="activar_notificaciones">Activar notificaciones</string>
+
+    <string-array name="especialidad_array">
+        <item>Seleccione una especialidad</item>
+        <item>Alergia e Inmunología</item>
+        <item>Cardiología</item>
+        <item>Dermatología</item>
+        <item>Endocrinología</item>
+        <item>Gastroenterología</item>
+        <item>Ginecología</item>
+        <item>Neumonología</item>
+        <item>Oncología</item>
+    </string-array>
+
+    <string-array name="doctor_array">
+        <item>Seleccione un(a) doctor(a)</item>
+        <item>Dra. Valeria Espejo</item>
+        <item>Dr. Felipe Velástegui</item>
+        <item>Dr. Carlos Flores</item>
+        <item>Dra. María Maguiña</item>
+    </string-array>
+
+    <string-array name="horarios_array">
+        <item>Seleccione un horario</item>
+        <item>02/05   8:00am a 9:00am</item>
+        <item>03/05   11:00am a 12:00m</item>
+        <item>01/05   9:00am a 10:00pm</item>
+        <item>06/05   2:00pm a 3:00pm</item>
+
+    </string-array>
+    <string name="switch_info_true">Se activaron las notificaciones</string>
+    <string name="switch_info_false">Se desactivaron las notificaciones</string>
+
+    <string name="datos_incorrectos">Usuario o contraseña incorrectos</string>
 </resources>
