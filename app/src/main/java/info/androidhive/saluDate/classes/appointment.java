@@ -5,36 +5,16 @@ package info.androidhive.saluDate.classes;
  */
 
 public class appointment {
-    private int image;
-    private String specialty;
-    private String doctorName;
-
-    public appointment(int img, String doctor, String specialty){
-        this.setDoctorName(doctor);
-        this.setImage(img);
-        this.setSpecialty(specialty);
-    }
-    public int getImage() {
-        return image;
+    private Doctor doc;
+    public appointment(Doctor Doc){
+        this.setDoc(Doc);
     }
 
-    public void setImage(int image) {
-        this.image = image;
+    public Doctor getDoc() {
+        return doc;
     }
 
-    public String getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
-    }
-
-    public String getDoctorName() {
-        return doctorName;
-    }
-
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
+    public void setDoc(Doctor doc) {
+        this.doc = doc;
     }
 }
