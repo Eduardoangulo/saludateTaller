@@ -1,6 +1,9 @@
 package info.androidhive.saluDate.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.ConexionService.PersonService;
 import info.androidhive.saluDate.ConexionService.person;
+import info.androidhive.saluDate.ConexionService.user;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,27 +55,34 @@ public class MainActivity extends AppCompatActivity {
         btnSimpleTabs = (Button) findViewById(R.id.btnIniciarSesion);
         editTextUser = (EditText) findViewById(R.id.edtxtUser);
         editTextPass = (EditText) findViewById(R.id.edtxtPass);
-        prueba = (TextView) findViewById(R.id.textView5);
-        prueba.setMovementMethod(new ScrollingMovementMethod());
+
 
         btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                retrofitLoad("http://34.209.167.194:8080/person-api/");
-                startActivity(new Intent(MainActivity.this, MenuPrincipalActivity.class));
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_succesful), Toast.LENGTH_SHORT).show();
+
+                retrofitLoad("http://34.209.167.194:8080/person-api/");;
 
             }
         });
     }
+
+    //carga el retrofit con determinada url
     private void retrofitLoad(String url){
-        retrofit = new Retrofit.Builder()
-                .baseUrl(url)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-                obtenerDatos();
+        if(isOnline()){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(url)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+            obtenerDatos();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Conectese a Internet", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
+    //obtiene el array de personas de la api
     private void obtenerDatos() {
         PersonService service = retrofit.create(PersonService.class);
         Call<ArrayList<person>> pokemonRespuestaCall = service.obtenerListaPersonas();
@@ -80,11 +91,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<person>> call, Response<ArrayList<person>> response) {
                 if (response.isSuccessful()) {
+                    //aca asigna lo cojido al array
                     ArrayList<person> personas = response.body();
-                    for(int i=0; i<personas.size(); i++){
-                        Log.i(TAG, " Dni: " + personas.get(i).getDni());
-                    }
+                    attemptLogin(personas);
                 } else {
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }
@@ -92,10 +103,48 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ArrayList<person>> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    //coje el array de personas y compara con lo que se ingreso en los campos del login
+    private void attemptLogin(ArrayList<person> personas){
+        user user1=null;
+        Log.i(TAG, " ingresado: " + editTextUser.getText());
+        for(int i=0; i<personas.size(); i++){
+            Log.i(TAG, " username/login: " + personas.get(i).getUser().getUsername());
+            if(personas.get(i).getUser().getUsername().equals(editTextUser.getText().toString())) {
+                Log.i(TAG, "usuario correcto");
+                user1 = personas.get(i).getUser();
+                break;
+            }
+        }
+        if(user1!=null){
+            Log.i(TAG, "NO ES NULO");
+            if(editTextPass.getText().toString().equals(user1.getPassword())){
+                Log.i(TAG, "contraseña correcta");
+                startActivity(new Intent(MainActivity.this, MenuPrincipalActivity.class));
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_succesful), Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_fail), Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Log.i(TAG, "ES NULO");
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_fail), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //creo q es pa ver si hay interweb
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnected();
+    }
 }
 
 

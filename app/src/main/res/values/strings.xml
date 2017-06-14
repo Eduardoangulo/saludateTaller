@@ -22,6 +22,9 @@
     <string name="iniciarSesion">INICIAR SESIÓN</string>
 
     <string name="login_succesful">Bienvenido a SaluDate</string>
+    <string name="login_fail">Usuario o Contraseña Incorrectos</string>
+    <string name="connection_error">Error de conexión</string>
+    <string name="noInternet">No hay conexion a Internet</string>
 
     <string name="snackbar_menuprincipal">Agregar nueva cita</string>
     <string name="toast_fichamedica">Ficha Médica</string>
