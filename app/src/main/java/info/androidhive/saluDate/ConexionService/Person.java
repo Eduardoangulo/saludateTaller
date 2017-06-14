@@ -22,11 +22,11 @@ package info.androidhive.saluDate.ConexionService;
         this.user_id = user_id;
     }
 
-    public info.androidhive.saluDate.ConexionService.user getUser() {
+    public user getUser() {
         return user;
     }
 
-    public void setUser(info.androidhive.saluDate.ConexionService.user user) {
+    public void setUser(user user) {
         this.user = user;
     }
 

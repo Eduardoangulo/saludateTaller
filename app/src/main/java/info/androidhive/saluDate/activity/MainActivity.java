@@ -5,13 +5,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import info.androidhive.materialtabs.R;
+import info.androidhive.saluDate.ConexionService.PersonService;
+import info.androidhive.saluDate.ConexionService.person;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText editTextPass;
     private String users[];
     private Button btnSimpleTabs;
+    private Retrofit retrofit;
+    private final String TAG= "PERSONAS";
 
 
     @Override
@@ -45,13 +57,45 @@ public class MainActivity extends AppCompatActivity {
         btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                retrofitLoad("http://34.209.167.194:8080/person-api/");
                 startActivity(new Intent(MainActivity.this, MenuPrincipalActivity.class));
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_succesful), Toast.LENGTH_SHORT).show();
 
             }
         });
     }
+    private void retrofitLoad(String url){
+        retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+                obtenerDatos();
+    }
+
+    private void obtenerDatos() {
+        PersonService service = retrofit.create(PersonService.class);
+        Call<ArrayList<person>> pokemonRespuestaCall = service.obtenerListaPersonas();
+
+        pokemonRespuestaCall.enqueue(new Callback<ArrayList<person>>() {
+            @Override
+            public void onResponse(Call<ArrayList<person>> call, Response<ArrayList<person>> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<person> personas = response.body();
+                    for(int i=0; i<personas.size(); i++){
+                        Log.i(TAG, " Dni: " + personas.get(i).getDni());
+                    }
+                } else {
+                    Log.e(TAG, " onResponse: " + response.errorBody());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<person>> call, Throwable t) {
+                Log.e(TAG, " onFailure: " + t.getMessage());
+            }
+        });
+    }
+
 }
 
 
