@@ -4,11 +4,11 @@ package info.androidhive.saluDate.classes;
  * Created by Luis on 19/05/2017.
  */
 
-public class Specialty {
+public class specialty {
     private int img;
     private String specialtyName;
 
-    public Specialty(int img, String name){
+    public specialty(int img, String name){
         this.img=img;
         setSpecialtyName(name);
     }

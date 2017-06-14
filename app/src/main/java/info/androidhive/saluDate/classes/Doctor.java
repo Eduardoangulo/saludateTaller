@@ -4,11 +4,11 @@ package info.androidhive.saluDate.classes;
  * Created by Luis on 19/05/2017.
  */
 
-public class Doctor {
-    private Specialty specialty;
+public class doctor {
+    private info.androidhive.saluDate.classes.specialty specialty;
     private String doctorName;
 
-    public Doctor(Specialty specialty, String doctorName){
+    public doctor(info.androidhive.saluDate.classes.specialty specialty, String doctorName){
         this.setSpecialty(specialty);
         this.doctorName=doctorName;
     }
@@ -21,11 +21,11 @@ public class Doctor {
     }
 
 
-    public Specialty getSpecialty() {
+    public info.androidhive.saluDate.classes.specialty getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(Specialty specialty) {
+    public void setSpecialty(info.androidhive.saluDate.classes.specialty specialty) {
         this.specialty = specialty;
     }
 }
