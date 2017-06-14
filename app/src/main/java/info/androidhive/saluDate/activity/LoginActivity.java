@@ -30,7 +30,7 @@ import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_de
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.estado_user;
 
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private EditText editTextUser;
@@ -128,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
             if(editTextPass.getText().toString().equals(user1.getPassword())&&estado_user){
                 Log.i(TAG, "contraseña correcta");
                 goMainScreen();
-                //startActivity(new Intent(MainActivity.this, MenuPrincipalActivity.class));
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_succesful), Toast.LENGTH_SHORT).show();
             }
             else{
