@@ -27,6 +27,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.estado_user;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -117,15 +118,17 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, " username/login: " + personas.get(i).getUser().getUsername());
             if(personas.get(i).getUser().getUsername().equals(editTextUser.getText().toString())) {
                 Log.i(TAG, "usuario correcto");
+                estado_user=true;
                 user1 = personas.get(i).getUser();
                 break;
             }
         }
         if(user1!=null){
             Log.i(TAG, "NO ES NULO");
-            if(editTextPass.getText().toString().equals(user1.getPassword())){
+            if(editTextPass.getText().toString().equals(user1.getPassword())&&estado_user){
                 Log.i(TAG, "contraseña correcta");
-                startActivity(new Intent(MainActivity.this, MenuPrincipalActivity.class));
+                goMainScreen();
+                //startActivity(new Intent(MainActivity.this, MenuPrincipalActivity.class));
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_succesful), Toast.LENGTH_SHORT).show();
             }
             else{
@@ -145,6 +148,12 @@ public class MainActivity extends AppCompatActivity {
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnected();
+    }
+
+    private void goMainScreen(){
+        Intent intent= new Intent(this, MenuPrincipalActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
 

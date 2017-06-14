@@ -17,10 +17,9 @@
         <activity
             android:screenOrientation="portrait"
             android:name="info.androidhive.saluDate.activity.MenuPrincipalActivity"
-            android:label="@string/title_activity_menu_principal"
-            android:parentActivityName="info.androidhive.saluDate.activity.MainActivity">
-        </activity>
+            android:label="@string/title_activity_menu_principal">
 
+        </activity>
         <activity
             android:screenOrientation="portrait"
             android:name="info.androidhive.saluDate.activity.FichaMedicaActivity"
