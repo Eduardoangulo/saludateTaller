@@ -1,4 +1,4 @@
-package info.androidhive.saluDate.ConexionService;
+package info.androidhive.saluDate.classes;
 
 /**
  * Created by gustavo on 18/05/17.
@@ -6,7 +6,7 @@ package info.androidhive.saluDate.ConexionService;
 
     public class person {
         private Integer user_id;
-        private user user;
+        private info.androidhive.saluDate.classes.user user;
         private String gender;
         private String dni;
         private String home_location;

@@ -23,6 +23,8 @@ import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.fragments.OneFragment;
 import info.androidhive.saluDate.fragments.TwoFragment;
 
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.estado_user;
+
 public class MenuPrincipalActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -34,10 +36,13 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
+        if(!estado_user){
+            goLoginScreen();
+        }
         try{
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -110,4 +115,11 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    private void goLoginScreen() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(0,0);
+    }
+
 }
