@@ -5,16 +5,16 @@ package info.androidhive.saluDate.classes;
  */
 
 public class appointment {
-    private Doctor doc;
-    public appointment(Doctor Doc){
+    private doctor doc;
+    public appointment(doctor Doc){
         this.setDoc(Doc);
     }
 
-    public Doctor getDoc() {
+    public doctor getDoc() {
         return doc;
     }
 
-    public void setDoc(Doctor doc) {
+    public void setDoc(doctor doc) {
         this.doc = doc;
     }
 }

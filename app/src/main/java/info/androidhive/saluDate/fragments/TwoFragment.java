@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import info.androidhive.saluDate.classes.Doctor;
-import info.androidhive.saluDate.classes.Specialty;
+import info.androidhive.saluDate.classes.doctor;
+import info.androidhive.saluDate.classes.specialty;
 import info.androidhive.saluDate.classes.appointment;
 import info.androidhive.saluDate.classes.appointmentAdapter;
 import info.androidhive.materialtabs.R;
@@ -33,7 +33,7 @@ public class TwoFragment extends Fragment{
         ListView rootView= (ListView) view.findViewById(R.id.list);
         appointmentAdapter adapter=new appointmentAdapter(getActivity(), R.layout.list_appointment);
         for(int i=0;i<20;i++)
-            adapter.add(new appointment(new Doctor(new Specialty(R.mipmap.cover1, "Urologia"),"Eduardo Angulo")));
+            adapter.add(new appointment(new doctor(new specialty(R.mipmap.cover1, "Urologia"),"Eduardo Angulo")));
         rootView.setAdapter(adapter);
         return view;
     }
