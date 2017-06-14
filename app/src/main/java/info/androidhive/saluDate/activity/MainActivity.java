@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,13 +18,15 @@ import java.util.ArrayList;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.ConexionService.PersonService;
-import info.androidhive.saluDate.ConexionService.person;
-import info.androidhive.saluDate.ConexionService.user;
+import info.androidhive.saluDate.classes.person;
+import info.androidhive.saluDate.classes.user;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                retrofitLoad("http://34.209.167.194:8080/person-api/");;
+                retrofitLoad(URL_desarrollo);
 
             }
         });

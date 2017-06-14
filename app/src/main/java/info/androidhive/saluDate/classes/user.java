@@ -1,4 +1,4 @@
-package info.androidhive.saluDate.ConexionService;
+package info.androidhive.saluDate.classes;
 
 
 

@@ -110,4 +110,5 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }
