@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.i(TAG, "NO ES NULO");
             if(editTextPass.getText().toString().equals(user1.getPassword())&&estado_user){
                 Log.i(TAG, "contraseña correcta");
-                //patient1.getPerson().setStatus("Conectado");
+                patient1.getPerson().setStatus("Conectado");
                 Log.i(TAG, " id paciente: " + patient1.getId());
                 patient patient2= new patient(patient1);
                 updateStatus(conexion.getRetrofit(), patient1);
@@ -132,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateStatus(Retrofit retrofit, patient p){
         patientService service = retrofit.create(patientService.class);
-        service.guardarStatus(p).enqueue(new Callback<patient>() {
+        service.guardarStatus(p.getId(), p.getCivil_status(), p.getPerson()).enqueue(new Callback<patient>() {
             @Override
             public void onResponse(Call<patient> call, Response<patient> response) {
              if (response.isSuccessful()){
@@ -155,123 +155,3 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   /* private void loadJSON() {
-        // Crear adaptador Retrofit
-        mRestAdapter = new Retrofit.Builder()
-                .baseUrl(patientService.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        // Crear conexión a la API de SaludMock
-        patientService = mRestAdapter.create(patientService.class);
-
-        editTextUser=(EditText)findViewById(R.id.edtxtUser);
-        editTextPass=(EditText)findViewById(R.id.edtxtPass);
-        btnSimpleTabs=(Button) findViewById(R.id.btnIniciarSesion);
-
-        editTextPass.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-
-                    if (!isOnline()) {
-                        return false;
-                    }
-                    attemptLogin();
-                    return true;
-            }
-        });
-        btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!isOnline()) {
-                    return;
-                }
-                attemptLogin();
-
-            }
-        });
-    }
-    private void attemptLogin() {
-
-
-        String userId = editTextUser.getText().toString();
-        String password = editTextPass.getText().toString();
-
-        boolean cancel = false;
-        View focusView = null;
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-
-            Call<patient> loginCall = patientService.login(new user(userId, password));
-            loginCall.enqueue(new Callback<patient>() {
-                @Override
-                public void onResponse(Call<patient> call, Response<patient> response) {
-
-                    try {
-                        // Reportar causas de error no relacionado con la API
-                        Log.d("LoginActivity", response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-
-                        return;
-                    }
-
-                @Override
-                public void onFailure(Call<patient> call, Throwable t) {
-                    showLoginError(t.getMessage());
-                }
-            });
-        }
-    }
-
-    private boolean isUserIdValid(String userId) {
-        return userId.length() == 10;
-    }
-
-    private boolean isPasswordValid(String password) {
-        return password.length() > 4;
-    }
-
-    private void showLoginError(String error) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-    }
-
-    private boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnected();
-    }
-
-}*/
-
