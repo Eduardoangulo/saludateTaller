@@ -4,9 +4,6 @@ package info.androidhive.saluDate.classes;
 
 import java.io.Serializable;
 
-/**
- * Created by gustavo on 24/05/17.
- */
 
 public class user {
     private String username;

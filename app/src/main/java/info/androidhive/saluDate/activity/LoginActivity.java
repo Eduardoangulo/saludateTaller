@@ -20,13 +20,11 @@ import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.ConexionService.patientService;
 import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.classes.patient;
-import info.androidhive.saluDate.classes.patient_post;
 import info.androidhive.saluDate.classes.user;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.estado_user;
@@ -115,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, "contraseña correcta");
                 patient1.getPerson().setStatus("Conectado");
                 Log.i(TAG, " id paciente: " + patient1.getId());
-                patient patient2= new patient(patient1);
                 updateStatus(conexion.getRetrofit(), patient1);
                 goMainScreen();
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_succesful), Toast.LENGTH_SHORT).show();
@@ -131,15 +128,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateStatus(Retrofit retrofit, patient p){
+        Log.i(TAG, " Estado civil del paciente " + p.getCivil_status());
         patientService service = retrofit.create(patientService.class);
-        service.guardarStatus(p.getId(), p.getCivil_status(), p.getPerson()).enqueue(new Callback<patient>() {
+        service.guardarStatus(p.getId(),p).enqueue(new Callback<patient>() {
+
             @Override
             public void onResponse(Call<patient> call, Response<patient> response) {
-             if (response.isSuccessful()){
-                    Log.i(TAG, " UPDATED PAPU! ID" + response.body().getId());
-                } else {
-                    Log.e(TAG, " onResponse: " + response.errorBody());
+                try
+                {
+                    if (response.isSuccessful()){
+                        Log.i(TAG, " UPDATED PAPU! ID" + response.body().getId());
+                    } else {
+                        Log.e(TAG, " onResponse: " + response.errorBody().toString());
+                    }
                 }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
             }
             @Override
             public void onFailure(Call<patient> call, Throwable t) {

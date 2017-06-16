@@ -1,15 +1,11 @@
 package info.androidhive.saluDate.classes;
 
-/**
- * Created by gustavo on 18/05/17.
- */
-
     public class person {
         private Integer user_id;
         private user user;
         private String gender;
         private String dni;
-        private String home_location;
+        private String home_address;
         private String born_date;
         private Integer born_place;
         private String phone_number;
@@ -47,12 +43,12 @@ package info.androidhive.saluDate.classes;
         this.dni = dni;
     }
 
-    public String getHome_location() {
-        return home_location;
+    public String getHome_address() {
+        return home_address;
     }
 
-    public void setHome_location(String home_location) {
-        this.home_location = home_location;
+    public void setHome_address(String home_address) {
+        this.home_address = home_address;
     }
 
     public String getBorn_date() {

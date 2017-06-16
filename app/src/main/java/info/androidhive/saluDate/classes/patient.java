@@ -1,18 +1,17 @@
 package info.androidhive.saluDate.classes;
 
-/**
- * Created by Luis on 15/06/2017.
- */
-
 public class patient {
+
     private Integer id;
     private String civil_status;
     private person person;
 
-    public patient (patient p){
-        civil_status=p.getCivil_status();
-        person=p.getPerson();
+    public patient (Integer id,String civil_status,person person){
+        this.setId(id);
+        this.setCivil_status(civil_status);
+        this.setPerson(person);
     }
+
     public Integer getId() {
         return id;
     }
@@ -21,20 +20,20 @@ public class patient {
         this.id = id;
     }
 
-    public person getPerson() {
-        return person;
-    }
-
-    public void setPerson(person person) {
-        this.person = person;
-    }
-
     public String getCivil_status() {
         return civil_status;
     }
 
     public void setCivil_status(String civil_status) {
         this.civil_status = civil_status;
+    }
+
+    public person getPerson() {
+        return person;
+    }
+
+    public void setPerson(person person) {
+        this.person = person;
     }
 }
 
