@@ -5,6 +5,6 @@ package info.androidhive.saluDate.ConexionService;
  */
 
 public class VariablesGlobales {
-    public static String URL_desarrollo = "http://34.209.167.194:8080/person-api/";
+    public static String URL_desarrollo = "http://34.209.167.194:8080/";
     public static boolean estado_user;
 }

@@ -17,8 +17,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import info.androidhive.materialtabs.R;
-import info.androidhive.saluDate.ConexionService.PersonService;
-import info.androidhive.saluDate.classes.person;
+import info.androidhive.saluDate.ConexionService.patientService;
+import info.androidhive.saluDate.ConexionService.api_connection;
+import info.androidhive.saluDate.classes.patient;
+import info.androidhive.saluDate.classes.patient_post;
 import info.androidhive.saluDate.classes.user;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,19 +36,17 @@ public class LoginActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private EditText editTextUser;
-    private TextView prueba;
     private EditText editTextPass;
-    private String users[];
     private Button btnSimpleTabs;
-    private Retrofit retrofit;
-    private final String TAG= "PERSONAS";
+    private final String TAG= "PACIENTES";
+    private api_connection conexion;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        conexion = new api_connection(getApplicationContext(), TAG, URL_desarrollo);
         try {
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -62,40 +62,24 @@ public class LoginActivity extends AppCompatActivity {
         btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                retrofitLoad(URL_desarrollo);
-
+                conexion.retrofitLoad();
+                obtenerDatos(conexion.getRetrofit());
             }
         });
     }
 
-    //carga el retrofit con determinada url
-    private void retrofitLoad(String url){
-        if(isOnline()){
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(url)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-            obtenerDatos();
-        }
-        else{
-            Toast.makeText(getApplicationContext(), "Conectese a Internet", Toast.LENGTH_SHORT).show();
-        }
+    //obtiene el array de patientas de la api
+    private void obtenerDatos(Retrofit retrofit) {
+        patientService service = retrofit.create(patientService.class);
+        Call<ArrayList<patient>> patientCall = service.obtenerListaPacientes();
 
-    }
-
-    //obtiene el array de personas de la api
-    private void obtenerDatos() {
-        PersonService service = retrofit.create(PersonService.class);
-        Call<ArrayList<person>> pokemonRespuestaCall = service.obtenerListaPersonas();
-
-        pokemonRespuestaCall.enqueue(new Callback<ArrayList<person>>() {
+        patientCall.enqueue(new Callback<ArrayList<patient>>() {
             @Override
-            public void onResponse(Call<ArrayList<person>> call, Response<ArrayList<person>> response) {
+            public void onResponse(Call<ArrayList<patient>> call, Response<ArrayList<patient>> response) {
                 if (response.isSuccessful()) {
                     //aca asigna lo cojido al array
-                    ArrayList<person> personas = response.body();
-                    attemptLogin(personas);
+                    ArrayList<patient> pacientes = response.body();
+                    attemptLogin(pacientes);
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, " onResponse: " + response.errorBody());
@@ -103,23 +87,25 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ArrayList<person>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<patient>> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    //coje el array de personas y compara con lo que se ingreso en los campos del login
-    private void attemptLogin(ArrayList<person> personas){
+    //coje el array de patientas y compara con lo que se ingreso en los campos del login
+    private void attemptLogin(ArrayList<patient> pacientes){
         user user1=null;
+        patient patient1=null;
         Log.i(TAG, " ingresado: " + editTextUser.getText());
-        for(int i=0; i<personas.size(); i++){
-            Log.i(TAG, " username/login: " + personas.get(i).getUser().getUsername());
-            if(personas.get(i).getUser().getUsername().equals(editTextUser.getText().toString())) {
+        for(int i=0; i<pacientes.size(); i++){
+            Log.i(TAG, " username/login: " + pacientes.get(i).getPerson().getUser().getUsername());
+            if(pacientes.get(i).getPerson().getUser().getUsername().equals(editTextUser.getText().toString())) {
                 Log.i(TAG, "usuario correcto");
                 estado_user=true;
-                user1 = personas.get(i).getUser();
+                patient1=pacientes.get(i);
+                user1 = pacientes.get(i).getPerson().getUser();
                 break;
             }
         }
@@ -127,6 +113,10 @@ public class LoginActivity extends AppCompatActivity {
             Log.i(TAG, "NO ES NULO");
             if(editTextPass.getText().toString().equals(user1.getPassword())&&estado_user){
                 Log.i(TAG, "contraseña correcta");
+                //patient1.getPerson().setStatus("Conectado");
+                Log.i(TAG, " id paciente: " + patient1.getId());
+                patient patient2= new patient(patient1);
+                updateStatus(conexion.getRetrofit(), patient1);
                 goMainScreen();
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_succesful), Toast.LENGTH_SHORT).show();
             }
@@ -140,20 +130,30 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    //creo q es pa ver si hay interweb
-    private boolean isOnline() {
-        ConnectivityManager cm =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null && activeNetwork.isConnected();
+    private void updateStatus(Retrofit retrofit, patient p){
+        patientService service = retrofit.create(patientService.class);
+        service.guardarStatus(p).enqueue(new Callback<patient>() {
+            @Override
+            public void onResponse(Call<patient> call, Response<patient> response) {
+             if (response.isSuccessful()){
+                    Log.i(TAG, " UPDATED PAPU! ID" + response.body().getId());
+                } else {
+                    Log.e(TAG, " onResponse: " + response.errorBody());
+                }
+            }
+            @Override
+            public void onFailure(Call<patient> call, Throwable t) {
+                Log.e(TAG, " onFailure: " + t.getMessage());
+            }
+        });
     }
-
+    //si esta logeado ir a mainscreen
     private void goMainScreen(){
         Intent intent= new Intent(this, MenuPrincipalActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
 }
 
 
@@ -182,11 +182,11 @@ public class LoginActivity extends AppCompatActivity {
    /* private void loadJSON() {
         // Crear adaptador Retrofit
         mRestAdapter = new Retrofit.Builder()
-                .baseUrl(PersonService.BASE_URL)
+                .baseUrl(patientService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         // Crear conexión a la API de SaludMock
-        personService = mRestAdapter.create(PersonService.class);
+        patientService = mRestAdapter.create(patientService.class);
 
         editTextUser=(EditText)findViewById(R.id.edtxtUser);
         editTextPass=(EditText)findViewById(R.id.edtxtPass);
@@ -229,10 +229,10 @@ public class LoginActivity extends AppCompatActivity {
             focusView.requestFocus();
         } else {
 
-            Call<person> loginCall = personService.login(new user(userId, password));
-            loginCall.enqueue(new Callback<person>() {
+            Call<patient> loginCall = patientService.login(new user(userId, password));
+            loginCall.enqueue(new Callback<patient>() {
                 @Override
-                public void onResponse(Call<person> call, Response<person> response) {
+                public void onResponse(Call<patient> call, Response<patient> response) {
 
                     try {
                         // Reportar causas de error no relacionado con la API
@@ -246,7 +246,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 @Override
-                public void onFailure(Call<person> call, Throwable t) {
+                public void onFailure(Call<patient> call, Throwable t) {
                     showLoginError(t.getMessage());
                 }
             });

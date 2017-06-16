@@ -6,13 +6,14 @@ package info.androidhive.saluDate.classes;
 
     public class person {
         private Integer user_id;
-        private info.androidhive.saluDate.classes.user user;
+        private user user;
         private String gender;
         private String dni;
         private String home_location;
         private String born_date;
         private Integer born_place;
         private String phone_number;
+        private String status;
 
     public Integer getUser_id() {
         return user_id;
@@ -76,6 +77,14 @@ package info.androidhive.saluDate.classes;
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
 
