@@ -7,9 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import info.androidhive.saluDate.classes.doctor;
-import info.androidhive.saluDate.classes.specialty;
-import info.androidhive.saluDate.classes.appointment;
 import info.androidhive.saluDate.classes.appointmentAdapter;
 import info.androidhive.materialtabs.R;
 
@@ -33,8 +30,6 @@ public class OneFragment extends Fragment{
         ListView rootView= (ListView) view.findViewById(R.id.list);
 
         appointmentAdapter adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
-        for(int i=0;i<100;i++)
-            adapter1.add(new appointment(new doctor(new specialty(R.mipmap.cover1, "Urologia"),"Eduardo Angulo")));
 
         rootView.setAdapter(adapter1);
         return view;

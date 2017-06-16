@@ -1,5 +1,6 @@
 package info.androidhive.saluDate.ConexionService;
 
+
 /**
  * Created by eduardo on 6/13/17.
  */
@@ -7,4 +8,6 @@ package info.androidhive.saluDate.ConexionService;
 public class VariablesGlobales {
     public static String URL_desarrollo = "http://34.209.167.194:8080/";
     public static boolean estado_user;
+    public static final String TAG= "SALUDATELOGS";
+    public static int LogedID;
 }

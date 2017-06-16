@@ -6,7 +6,7 @@ public class patient {
     private String civil_status;
     private person person;
 
-    public patient (Integer id,String civil_status,person person){
+    public patient(Integer id, String civil_status, person person){
         this.setId(id);
         this.setCivil_status(civil_status);
         this.setPerson(person);

@@ -5,27 +5,31 @@ package info.androidhive.saluDate.classes;
  */
 
 public class doctor {
-    private info.androidhive.saluDate.classes.specialty specialty;
-    private String doctorName;
+    private Integer id;
+    private String school_medicine;
+    private person person;
 
-    public doctor(info.androidhive.saluDate.classes.specialty specialty, String doctorName){
-        this.setSpecialty(specialty);
-        this.doctorName=doctorName;
-    }
-    public String getDoctorName() {
-        return doctorName;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-
-    public info.androidhive.saluDate.classes.specialty getSpecialty() {
-        return specialty;
+    public String getSchool_medicine() {
+        return school_medicine;
     }
 
-    public void setSpecialty(info.androidhive.saluDate.classes.specialty specialty) {
-        this.specialty = specialty;
+    public void setSchool_medicine(String school_medicine) {
+        this.school_medicine = school_medicine;
+    }
+
+    public info.androidhive.saluDate.classes.person getPerson() {
+        return person;
+    }
+
+    public void setPerson(info.androidhive.saluDate.classes.person person) {
+        this.person = person;
     }
 }

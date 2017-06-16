@@ -1,9 +1,6 @@
 package info.androidhive.saluDate.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -27,8 +23,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedID;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.estado_user;
-
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUser;
     private EditText editTextPass;
     private Button btnSimpleTabs;
-    private final String TAG= "PACIENTES";
     private api_connection conexion;
 
 
@@ -60,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                conexion.retrofitLoad();
+                //conexion.retrofitLoad();
                 obtenerDatos(conexion.getRetrofit());
             }
         });
@@ -101,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
             Log.i(TAG, " username/login: " + pacientes.get(i).getPerson().getUser().getUsername());
             if(pacientes.get(i).getPerson().getUser().getUsername().equals(editTextUser.getText().toString())) {
                 Log.i(TAG, "usuario correcto");
-                estado_user=true;
                 patient1=pacientes.get(i);
                 user1 = pacientes.get(i).getPerson().getUser();
                 break;
@@ -109,8 +104,10 @@ public class LoginActivity extends AppCompatActivity {
         }
         if(user1!=null){
             Log.i(TAG, "NO ES NULO");
-            if(editTextPass.getText().toString().equals(user1.getPassword())&&estado_user){
+            if(editTextPass.getText().toString().equals(user1.getPassword())){
                 Log.i(TAG, "contraseña correcta");
+                estado_user=true;
+                LogedID =patient1.getId();
                 patient1.getPerson().setStatus("Conectado");
                 Log.i(TAG, " id paciente: " + patient1.getId());
                 updateStatus(conexion.getRetrofit(), patient1);
@@ -154,6 +151,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     //si esta logeado ir a mainscreen
     private void goMainScreen(){
         Intent intent= new Intent(this, MenuPrincipalActivity.class);

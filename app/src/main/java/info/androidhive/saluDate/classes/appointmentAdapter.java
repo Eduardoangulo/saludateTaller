@@ -14,8 +14,6 @@ import info.androidhive.materialtabs.R;
 
 public class appointmentAdapter extends ArrayAdapter<appointment> {
     private int r;
-    private boolean phrases=false;
-    private int color;
     public appointmentAdapter(Activity context, int resource){
             super(context, resource);
             r=resource;
@@ -32,9 +30,9 @@ public class appointmentAdapter extends ArrayAdapter<appointment> {
             TextView doctorN = (TextView) listItemView.findViewById(R.id.doctorText);
             ImageView img = (ImageView) listItemView.findViewById(R.id.pimage);
 
-            specialty.setText(currentAppointment.getDoc().getSpecialty().getSpecialtyName());
-            doctorN.setText(currentAppointment.getDoc().getDoctorName());
-            img.setImageResource(currentAppointment.getDoc().getSpecialty().getImg());
+            //speciality.setText(currentAppointment.getDoc().getSpecialty().getName());
+            doctorN.setText(currentAppointment.getDoc().getPerson().getUser().getFirst_name());
+            //img.setImageResource(currentAppointment.getDoc().getSpecialty().getImg());
 
             return listItemView;
 

@@ -24,6 +24,7 @@ public class api_connection {
         this.context=context;
         this.url=url;
         this.TAG=TAG;
+        retrofitLoad();
     }
 
     public void retrofitLoad(){
@@ -34,7 +35,7 @@ public class api_connection {
                     .baseUrl(url)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build());
-            Log.i(TAG, "creo retrofit");
+            Log.i(TAG, "creó el retrofit");
         }
         else{
             Toast.makeText(context, context.getResources().getString(R.string.noInternet) , Toast.LENGTH_SHORT).show();
