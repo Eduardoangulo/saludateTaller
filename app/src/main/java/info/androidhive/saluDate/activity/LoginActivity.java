@@ -24,8 +24,11 @@ import retrofit2.Retrofit;
 
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedID;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.estado_user;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.pacientes;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.patient1;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUser;
     private EditText editTextPass;
     private Button btnSimpleTabs;
-    private api_connection conexion;
 
 
     @Override
@@ -52,7 +54,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextUser = (EditText) findViewById(R.id.edtxtUser);
         editTextPass = (EditText) findViewById(R.id.edtxtPass);
 
-
         btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //obtiene el array de patientas de la api
+    //obtiene el array de patients de la api
     private void obtenerDatos(Retrofit retrofit) {
         patientService service = retrofit.create(patientService.class);
         Call<ArrayList<patient>> patientCall = service.obtenerListaPacientes();
@@ -72,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<patient>> call, Response<ArrayList<patient>> response) {
                 if (response.isSuccessful()) {
                     //aca asigna lo cojido al array
-                    ArrayList<patient> pacientes = response.body();
+                    pacientes = response.body();
                     attemptLogin(pacientes);
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
@@ -91,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
     //coje el array de patientas y compara con lo que se ingreso en los campos del login
     private void attemptLogin(ArrayList<patient> pacientes){
         user user1=null;
-        patient patient1=null;
+        patient1=null;
         Log.i(TAG, " ingresado: " + editTextUser.getText());
         for(int i=0; i<pacientes.size(); i++){
             Log.i(TAG, " username/login: " + pacientes.get(i).getPerson().getUser().getUsername());
@@ -112,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, " id paciente: " + patient1.getId());
                 updateStatus(conexion.getRetrofit(), patient1);
                 goMainScreen();
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_succesful), Toast.LENGTH_SHORT).show();
             }
             else{
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_fail), Toast.LENGTH_SHORT).show();

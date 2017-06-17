@@ -3,13 +3,18 @@ package info.androidhive.saluDate.ConexionService;
 import java.util.ArrayList;
 
 import info.androidhive.saluDate.classes.MedicalRecord;
+import info.androidhive.saluDate.classes.appointment;
 import info.androidhive.saluDate.classes.doctor;
+import info.androidhive.saluDate.classes.patient;
 import info.androidhive.saluDate.classes.schedule;
 import info.androidhive.saluDate.classes.schedule_doctor;
 import info.androidhive.saluDate.classes.speciality;
 import info.androidhive.saluDate.classes.speciality_doctor;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -31,4 +36,9 @@ public interface appointmentService {
 
     @GET("doctor/schedule-doctor-api/")
     Call<ArrayList<schedule_doctor>> obtenerDoctorHorario ();
+
+    @Headers({ "Content-Type: application/json"})
+    @POST("patient/appointment-api/")
+    Call<appointment> crearNuevaCita(@Body appointment appointment);
+
 }

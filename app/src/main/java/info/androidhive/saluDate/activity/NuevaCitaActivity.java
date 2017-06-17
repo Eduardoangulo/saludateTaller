@@ -49,6 +49,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
     private speciality currentSpeciality;
     private doctor currentDoctor;
     private schedule currentSchedule;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,13 +101,13 @@ public class NuevaCitaActivity extends AppCompatActivity{
                                                    int pos, long id) {
                             currentSpeciality=adapter1.getItem(pos);
                             getSpecialityDoctor(conexion.getRetrofit());
-                            Toast.makeText(context, currentSpeciality.getName() ,Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, currentSpeciality.getName() ,Toast.LENGTH_SHORT).show();
                         }
                         public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }
@@ -129,14 +130,14 @@ public class NuevaCitaActivity extends AppCompatActivity{
                     Log.i(TAG, "Se obtuvieron especialidades-doctor");
                     getDoctors(conexion.getRetrofit(), response.body());
                 } else {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }
             @Override
             public void onFailure(Call<ArrayList<speciality_doctor>> call, Throwable t) {
                 Log.e(TAG, " onFailure: " + t.getMessage());
-                Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -157,14 +158,14 @@ public class NuevaCitaActivity extends AppCompatActivity{
                                                    int pos, long id) {
                             currentDoctor=adapter2.getItem(pos);
                             getScheduleDoctor(conexion.getRetrofit());
-                            Toast.makeText(context, currentDoctor.getPerson().getUser().getFirst_name() ,Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, currentDoctor.getPerson().getUser().getFirst_name() ,Toast.LENGTH_SHORT).show();
 
                         }
                         public void onNothingSelected(AdapterView<?> parent) {
                         }
                     });
                 } else {
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }

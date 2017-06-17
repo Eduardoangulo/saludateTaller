@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SaluDate</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ajustes</string>
 
     <string name="one">En desarrollo</string>
     <string name="three">En desarrollo</string>
@@ -64,4 +64,5 @@
     <string name="switch_info_false">Se desactivaron las notificaciones</string>
 
     <string name="datos_incorrectos">Usuario o contraseña incorrectos</string>
+    <string name="log_out">Cerrar Sesión</string>
 </resources>

@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +20,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.materialtabs.R;
+import info.androidhive.saluDate.ConexionService.api_connection;
+import info.androidhive.saluDate.ConexionService.patientService;
+import info.androidhive.saluDate.classes.patient;
 import info.androidhive.saluDate.fragments.OneFragment;
 import info.androidhive.saluDate.fragments.TwoFragment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.estado_user;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.patient1;
 
 public class MenuPrincipalActivity extends AppCompatActivity {
 
@@ -30,14 +41,14 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
 
-        if(!estado_user){
-            goLoginScreen();
-        }
+        verifyStatus();
+
         try{
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
@@ -105,10 +116,25 @@ public class MenuPrincipalActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        /*switch (item.getItemId()) {
             case R.id.icon_ficha_medica:
                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_fichamedica),Toast.LENGTH_LONG);
                 startActivity(new Intent(MenuPrincipalActivity.this, FichaMedicaActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }*/
+        switch (item.getItemId()) {
+            case R.id.ficha_medica:
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_fichamedica),Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MenuPrincipalActivity.this, FichaMedicaActivity.class));
+                return true;
+            case R.id.ajustes:
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.action_settings),Toast.LENGTH_LONG).show();
+                return true;
+            case R.id.cerrar_sesion:
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.log_out),Toast.LENGTH_LONG).show();
+                LogOut();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -120,5 +146,45 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(0,0);
     }
+    private void LogOut()
+    {
+        patient1.getPerson().setStatus("Desconectado");
+        updateStatus(conexion.getRetrofit(),patient1);
+    }
+
+    private void updateStatus(Retrofit retrofit, patient p){
+        patientService service = retrofit.create(patientService.class);
+        service.guardarStatus(p.getId(),p).enqueue(new Callback<patient>() {
+
+            @Override
+            public void onResponse(Call<patient> call, Response<patient> response) {
+                try
+                {
+                    if (response.isSuccessful()){
+                        Log.i(TAG, " UPDATED PAPU! ID" + response.body().getId());
+                        estado_user=false;
+                        verifyStatus();
+                    } else {
+                        Log.e(TAG, " onResponse: " + response.errorBody().toString());
+                    }
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<patient> call, Throwable t) {
+                Log.e(TAG, " onFailure: " + t.getMessage());
+            }
+        });
+    }
+    private void verifyStatus(){
+        if(!estado_user)
+        {
+            goLoginScreen();
+        }
+    };
 
 }
