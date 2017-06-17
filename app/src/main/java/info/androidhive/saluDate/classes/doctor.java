@@ -25,11 +25,11 @@ public class doctor {
         this.school_medicine = school_medicine;
     }
 
-    public info.androidhive.saluDate.classes.person getPerson() {
+    public person getPerson() {
         return person;
     }
 
-    public void setPerson(info.androidhive.saluDate.classes.person person) {
+    public void setPerson(person person) {
         this.person = person;
     }
 }

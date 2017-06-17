@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import info.androidhive.saluDate.classes.appointmentAdapter;
+import info.androidhive.saluDate.adapters.appointmentAdapter;
 import info.androidhive.materialtabs.R;
 
 

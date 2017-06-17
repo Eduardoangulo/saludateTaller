@@ -1,4 +1,4 @@
-package info.androidhive.saluDate.classes;
+package info.androidhive.saluDate.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import info.androidhive.materialtabs.R;
+import info.androidhive.saluDate.classes.appointment;
+
 /**
  * Created by Luis on 05/05/2017.
  */
