@@ -12,6 +12,7 @@ public class appointment {
     private String descripcion;
     private String annotations;
 
+
     public Integer getId() {
         return id;
     }
@@ -20,27 +21,27 @@ public class appointment {
         this.id = id;
     }
 
-    public info.androidhive.saluDate.classes.schedule_doctor getSchedule_doctor() {
+    public schedule_doctor getSchedule_doctor() {
         return schedule_doctor;
     }
 
-    public void setSchedule_doctor(info.androidhive.saluDate.classes.schedule_doctor schedule_doctor) {
+    public void setSchedule_doctor(schedule_doctor schedule_doctor) {
         this.schedule_doctor = schedule_doctor;
     }
 
-    public info.androidhive.saluDate.classes.speciality_doctor getSpeciality_doctor() {
+    public speciality_doctor getSpeciality_doctor() {
         return speciality_doctor;
     }
 
-    public void setSpeciality_doctor(info.androidhive.saluDate.classes.speciality_doctor speciality_doctor) {
+    public void setSpeciality_doctor(speciality_doctor speciality_doctor) {
         this.speciality_doctor = speciality_doctor;
     }
 
-    public info.androidhive.saluDate.classes.patient getPatient() {
+    public patient getPatient() {
         return patient;
     }
 
-    public void setPatient(info.androidhive.saluDate.classes.patient patient) {
+    public void setPatient(patient patient) {
         this.patient = patient;
     }
 

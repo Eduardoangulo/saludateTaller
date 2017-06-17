@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
         btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //conexion.retrofitLoad();
                 obtenerDatos(conexion.getRetrofit());
             }
         });
@@ -72,7 +71,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<patient>> call, Response<ArrayList<patient>> response) {
                 if (response.isSuccessful()) {
-                    //aca asigna lo cojido al array
                     pacientes = response.body();
                     attemptLogin(pacientes);
                 } else {

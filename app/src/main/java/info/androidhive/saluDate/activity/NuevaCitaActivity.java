@@ -233,7 +233,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int pos, long id) {
                             currentSchedule=adapter3.getItem(pos);
-                            Toast.makeText(context, currentSchedule.getStart_hour() ,Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(context, currentSchedule.getStart_hour() ,Toast.LENGTH_SHORT).show();
 
                         }
                         public void onNothingSelected(AdapterView<?> parent) {
