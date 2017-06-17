@@ -36,6 +36,10 @@ public class appointmentAdapter extends ArrayAdapter<appointment> {
             //doctorN.setText(currentAppointment.getDoc().getPerson().getUser().getFirst_name());
             //img.setImageResource(currentAppointment.getDoc().getSpecialty().getImg());
 
+            specialty.setText(currentAppointment.getSpecialty());
+            doctorN.setText(currentAppointment.getDoctorName());
+            img.setImageResource(currentAppointment.getImage());
+
             return listItemView;
 
     }

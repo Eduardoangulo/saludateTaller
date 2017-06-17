@@ -37,7 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextPass;
     private Button btnSimpleTabs;
 
-
+    //jorge.canales
+    //82524872
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

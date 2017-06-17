@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import info.androidhive.saluDate.adapters.appointmentAdapter;
 import info.androidhive.materialtabs.R;
+import info.androidhive.saluDate.classes.appointment;
 
 
 public class OneFragment extends Fragment{
@@ -30,6 +31,10 @@ public class OneFragment extends Fragment{
         ListView rootView= (ListView) view.findViewById(R.id.list);
 
         appointmentAdapter adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
+        adapter1.add(new appointment(R.drawable.user, "Diego Cayo", "Urología"));
+        adapter1.add(new appointment(R.drawable.user, "Emerson Carnero", "Cardiología"));
+        adapter1.add(new appointment(R.drawable.user, "Percy Moncada", "Pediatría"));
+        adapter1.add(new appointment(R.drawable.user, "Sindy Estuchi", "Obstetricia"));
 
         rootView.setAdapter(adapter1);
         return view;
