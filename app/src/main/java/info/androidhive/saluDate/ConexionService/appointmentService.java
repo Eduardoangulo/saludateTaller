@@ -37,6 +37,20 @@ public interface appointmentService {
     @GET("doctor/schedule-doctor-api/")
     Call<ArrayList<schedule_doctor>> obtenerDoctorHorario ();
 
+
+    //Mostrar citas
+    @GET("patient/appointment-api/")
+    Call<ArrayList<appointment>> obtenerCitas();
+
+   /* @GET("doctor/doctor-api/{id}")
+    Call<doctor> obtenerDoctor(@Path("id") Integer id);
+
+    @GET("doctor/speciality-api/{id}")
+    Call<doctor> obtenerEspecialidad(@Path("id") Integer id);
+
+    @GET("doctor/schedule-api/{id}")
+    Call<doctor> obtenerHorario(@Path("id") Integer id);*/
+
     @Headers({ "Content-Type: application/json"})
     @POST("patient/appointment-api/")
     Call<appointment> crearNuevaCita(@Body appointment appointment);

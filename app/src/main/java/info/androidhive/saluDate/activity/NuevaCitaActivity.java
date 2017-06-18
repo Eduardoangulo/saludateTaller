@@ -20,6 +20,7 @@ import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.ConexionService.appointmentService;
 import info.androidhive.saluDate.adapters.doctorSAdapter;
 import info.androidhive.saluDate.adapters.scheduleSAdapter;
+import info.androidhive.saluDate.classes.appointment;
 import info.androidhive.saluDate.classes.doctor;
 import info.androidhive.saluDate.classes.schedule;
 import info.androidhive.saluDate.classes.schedule_doctor;
@@ -31,6 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedID;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
 
@@ -46,9 +48,15 @@ public class NuevaCitaActivity extends AppCompatActivity{
     private Spinner doctorSpinner;
     private Spinner scheduleSpinner;
     private Activity context=this;
+
     private speciality currentSpeciality;
     private doctor currentDoctor;
     private schedule currentSchedule;
+
+    private Integer currentSpecialty_doctor=0;
+    private Integer currentSchedule_doctor=0;
+    ArrayList<speciality_doctor> specialty_doctorIDS= new ArrayList<>();
+    ArrayList<schedule_doctor> schedule_doctorIDS= new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,12 +84,33 @@ public class NuevaCitaActivity extends AppCompatActivity{
         programar_cita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),getResources().getString(R.string.title_activity_menu_principal),Toast.LENGTH_LONG);
-                startActivity(new Intent(NuevaCitaActivity.this, MenuPrincipalActivity.class));
-                finish();
+                if(currentSchedule_doctor!=0){
+                    Log.i(TAG, "Entró a nueva cita");
+                    appointment cita= new appointment(currentSchedule_doctor, currentSpecialty_doctor, LogedID, "desde app", "desde app");
+                    appointmentService service = conexion.getRetrofit().create(appointmentService.class);
+                    Call<appointment> Call = service.crearNuevaCita(cita);
+                    Call.enqueue(new Callback<appointment>() {
+                        @Override
+                        public void onResponse(Call<appointment> call, Response<appointment> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(getApplicationContext(),"Nueva cita creada",Toast.LENGTH_LONG);
+                                startActivity(new Intent(NuevaCitaActivity.this, MenuPrincipalActivity.class));
+                                finish();
+                            } else {
+                                Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, " onResponse: " + response.errorBody());
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<appointment> call, Throwable t) {
+                            Log.e(TAG, " onFailure: " + t.getMessage());
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
             }
         });
-
     }
 
     //ESTO ES PARA CONSEGUIR TODAS LAS ESPECIALIDADES
@@ -113,7 +142,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
             }
             @Override
             public void onFailure(Call<ArrayList<speciality>> call, Throwable t) {
-                Log.e(TAG, " onFailure: " + t.getMessage());
+                Log.e(TAG, " onFailure-Speciality: " + t.getMessage());
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }
         });
@@ -142,6 +171,24 @@ public class NuevaCitaActivity extends AppCompatActivity{
         });
     }
 
+    //ESTO FILTRA DOCTOR POR ESPECIALIDAD USANDO LA TABLA INTERMEDIA!
+    private ArrayList<doctor> filterDoctors(ArrayList<speciality_doctor> speciality_doctors, ArrayList<doctor> doctors){
+        ArrayList<Integer> doctorIDS= new ArrayList<>();
+        for(int i=0; i<speciality_doctors.size(); i++) {
+            if(speciality_doctors.get(i).getSpeciality()==currentSpeciality.getId()){
+                doctorIDS.add(speciality_doctors.get(i).getDoctor());
+                specialty_doctorIDS.add(speciality_doctors.get(i));
+            }
+        }
+        for(int i=0; i<doctors.size(); i++) {
+            if(!doctorIDS.contains(doctors.get(i).getId())){
+                doctors.remove(i);
+                i--;
+            }
+        }
+        return doctors;
+    }
+
     //ESTO ES PA CONSEGUIR TODOS LOS DOCTORES
     private void getDoctors(Retrofit retrofit,  final ArrayList<speciality_doctor> speciality_doctors) {
         appointmentService service = retrofit.create(appointmentService.class);
@@ -157,6 +204,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int pos, long id) {
                             currentDoctor=adapter2.getItem(pos);
+                            getCurrentSpecialtyDoctor();
                             getScheduleDoctor(conexion.getRetrofit());
                             //Toast.makeText(context, currentDoctor.getPerson().getUser().getFirst_name() ,Toast.LENGTH_SHORT).show();
 
@@ -172,27 +220,20 @@ public class NuevaCitaActivity extends AppCompatActivity{
 
             @Override
             public void onFailure(Call<ArrayList<doctor>> call, Throwable t) {
-                Log.e(TAG, " onFailure: " + t.getMessage());
+                Log.e(TAG, " onFailure-Doctors: " + t.getMessage());
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    //ESTO FILTRA DOCTOR POR ESPECIALIDAD USANDO LA TABLA INTERMEDIA!
-    private ArrayList<doctor> filterDoctors(ArrayList<speciality_doctor> speciality_doctors, ArrayList<doctor> doctors){
-        ArrayList<Integer> doctorIDS= new ArrayList<>();
-        for(int i=0; i<speciality_doctors.size(); i++) {
-            if(speciality_doctors.get(i).getSpeciality()==currentSpeciality.getId()){
-                doctorIDS.add(speciality_doctors.get(i).getDoctor());
+    private void getCurrentSpecialtyDoctor(){
+        for(int i=0; i<specialty_doctorIDS.size(); i++){
+            if(specialty_doctorIDS.get(i).getDoctor()==currentDoctor.getId()){
+                currentSpecialty_doctor=specialty_doctorIDS.get(i).getId();
+                break;
             }
         }
-        for(int i=0; i<doctors.size(); i++) {
-                if(!doctorIDS.contains(doctors.get(i).getId())){
-                        doctors.remove(i);
-                    i--;
-                }
-        }
-        return doctors;
+        Log.i(TAG, "Specialty_doctor: "+currentSpecialty_doctor);
     }
 
     //ESTO ES PA OBTENER LA TABLA INTERMEDIA DOCTOR HORARIO
@@ -218,8 +259,26 @@ public class NuevaCitaActivity extends AppCompatActivity{
         });
     }
 
+    //ESTO ES PARA FILTRAR LOS HORARIOS POR DOCTOR USANDO TABLA INTERMEDIA
+    private ArrayList<schedule> filterHorarios(ArrayList<schedule_doctor> schedule_doctors, ArrayList<schedule> schedules){
+        ArrayList<Integer> schedulesID= new ArrayList<>();
+        for(int i=0; i<schedule_doctors.size(); i++) {
+            if(schedule_doctors.get(i).getDoctor()==currentDoctor.getId()){
+                schedulesID.add(schedule_doctors.get(i).getSchedule());
+                schedule_doctorIDS.add(schedule_doctors.get(i));
+            }
+        }
+        for(int i=0; i<schedules.size(); i++) {
+            if(!schedulesID.contains(schedules.get(i).getId())){
+                schedules.remove(i);
+                i--;
+            }
+        }
+        return schedules;
+    }
+
     //ESTO ES PARA OBTENER TODOS LOS HORARIOS
-     private void getScheldules(Retrofit retrofit, final ArrayList<schedule_doctor> schedule_doctors) {
+    private void getScheldules(Retrofit retrofit, final ArrayList<schedule_doctor> schedule_doctors) {
       appointmentService service = retrofit.create(appointmentService.class);
         Call<ArrayList<schedule>> Call = service.obtenerHorarios();
         Call.enqueue(new Callback<ArrayList<schedule>>() {
@@ -233,6 +292,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int pos, long id) {
                             currentSchedule=adapter3.getItem(pos);
+                            getCurrentScheduleDoctor();
                             Toast.makeText(context, currentSchedule.getStart_hour() ,Toast.LENGTH_SHORT).show();
 
                         }
@@ -253,20 +313,13 @@ public class NuevaCitaActivity extends AppCompatActivity{
         });
     }
 
-    //ESTO ES PARA FILTRAR LOS HORARIOS POR DOCTOR USANDO TABLA INTERMEDIA
-    private ArrayList<schedule> filterHorarios(ArrayList<schedule_doctor> schedule_doctors, ArrayList<schedule> schedules){
-        ArrayList<Integer> schedulesID= new ArrayList<>();
-        for(int i=0; i<schedule_doctors.size(); i++) {
-            if(schedule_doctors.get(i).getDoctor()==currentDoctor.getId()){
-                schedulesID.add(schedule_doctors.get(i).getSchedule());
+    private void getCurrentScheduleDoctor(){
+        for(int i=0; i<schedule_doctorIDS.size(); i++){
+            if(schedule_doctorIDS.get(i).getSchedule()==currentSchedule.getId()){
+                currentSchedule_doctor=schedule_doctorIDS.get(i).getId();
+                break;
             }
         }
-        for(int i=0; i<schedules.size(); i++) {
-            if(!schedulesID.contains(schedules.get(i).getId())){
-                schedules.remove(i);
-                i--;
-            }
-        }
-        return schedules;
+        Log.i(TAG, "Schedule_doctor: "+currentSchedule_doctor);
     }
 }

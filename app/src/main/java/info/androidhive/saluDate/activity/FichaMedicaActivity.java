@@ -68,7 +68,7 @@ public class FichaMedicaActivity extends AppCompatActivity {
     //obtener datooos
     private void obtenerDatos(Retrofit retrofit) {
         patientService service = retrofit.create(patientService.class);
-        Call<MedicalRecord> patientCall = service.obtenerFichaMedica(LogedID-1);
+        Call<MedicalRecord> patientCall = service.obtenerFichaMedica(LogedID);
 
         patientCall.enqueue(new Callback<MedicalRecord>() {
             @Override

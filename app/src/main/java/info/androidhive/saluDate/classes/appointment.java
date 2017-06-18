@@ -6,11 +6,19 @@ package info.androidhive.saluDate.classes;
 
 public class appointment {
     private Integer id;
-    private schedule_doctor schedule_doctor;
-    private speciality_doctor speciality_doctor;
-    private patient patient;
-    private String descripcion;
+    private Integer schedule_doctor;
+    private Integer speciality_doctor;
+    private Integer patient;
+    private String description;
     private String annotations;
+
+    public appointment(Integer schedule_doctor, Integer speciality_doctor, Integer patient, String description, String annotations){
+        this.schedule_doctor=schedule_doctor;
+        this.speciality_doctor=speciality_doctor;
+        this.patient=patient;
+        this.description = description;
+        this.annotations=annotations;
+    }
 
     public Integer getId() {
         return id;
@@ -20,36 +28,36 @@ public class appointment {
         this.id = id;
     }
 
-    public info.androidhive.saluDate.classes.schedule_doctor getSchedule_doctor() {
+    public Integer getSchedule_doctor() {
         return schedule_doctor;
     }
 
-    public void setSchedule_doctor(info.androidhive.saluDate.classes.schedule_doctor schedule_doctor) {
+    public void setSchedule_doctor(Integer schedule_doctor) {
         this.schedule_doctor = schedule_doctor;
     }
 
-    public info.androidhive.saluDate.classes.speciality_doctor getSpeciality_doctor() {
+    public Integer getSpeciality_doctor() {
         return speciality_doctor;
     }
 
-    public void setSpeciality_doctor(info.androidhive.saluDate.classes.speciality_doctor speciality_doctor) {
+    public void setSpeciality_doctor(Integer speciality_doctor) {
         this.speciality_doctor = speciality_doctor;
     }
 
-    public info.androidhive.saluDate.classes.patient getPatient() {
+    public Integer getPatient() {
         return patient;
     }
 
-    public void setPatient(info.androidhive.saluDate.classes.patient patient) {
+    public void setPatient(Integer patient) {
         this.patient = patient;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getAnnotations() {
