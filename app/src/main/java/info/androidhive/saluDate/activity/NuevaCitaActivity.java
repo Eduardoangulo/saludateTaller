@@ -49,12 +49,12 @@ public class NuevaCitaActivity extends AppCompatActivity{
     private Spinner scheduleSpinner;
     private Activity context=this;
 
-    private speciality currentSpeciality;
-    private doctor currentDoctor;
-    private schedule currentSchedule;
-
+    private Integer currentSpeciality;
+    private Integer currentDoctor;
+    private Integer currentSchedule;
     private Integer currentSpecialty_doctor=0;
     private Integer currentSchedule_doctor=0;
+
     ArrayList<speciality_doctor> specialty_doctorIDS= new ArrayList<>();
     ArrayList<schedule_doctor> schedule_doctorIDS= new ArrayList<>();
 
@@ -128,9 +128,8 @@ public class NuevaCitaActivity extends AppCompatActivity{
                     specialitySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int pos, long id) {
-                            currentSpeciality=adapter1.getItem(pos);
+                            currentSpeciality=adapter1.getItem(pos).getId();
                             getSpecialityDoctor(conexion.getRetrofit());
-                            //Toast.makeText(context, currentSpeciality.getName() ,Toast.LENGTH_SHORT).show();
                         }
                         public void onNothingSelected(AdapterView<?> parent) {
                         }
@@ -175,7 +174,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
     private ArrayList<doctor> filterDoctors(ArrayList<speciality_doctor> speciality_doctors, ArrayList<doctor> doctors){
         ArrayList<Integer> doctorIDS= new ArrayList<>();
         for(int i=0; i<speciality_doctors.size(); i++) {
-            if(speciality_doctors.get(i).getSpeciality()==currentSpeciality.getId()){
+            if(speciality_doctors.get(i).getSpeciality()==currentSpeciality){
                 doctorIDS.add(speciality_doctors.get(i).getDoctor());
                 specialty_doctorIDS.add(speciality_doctors.get(i));
             }
@@ -203,10 +202,9 @@ public class NuevaCitaActivity extends AppCompatActivity{
                     doctorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int pos, long id) {
-                            currentDoctor=adapter2.getItem(pos);
+                            currentDoctor=adapter2.getItem(pos).getId();
                             getCurrentSpecialtyDoctor();
                             getScheduleDoctor(conexion.getRetrofit());
-                            //Toast.makeText(context, currentDoctor.getPerson().getUser().getFirst_name() ,Toast.LENGTH_SHORT).show();
 
                         }
                         public void onNothingSelected(AdapterView<?> parent) {
@@ -228,7 +226,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
 
     private void getCurrentSpecialtyDoctor(){
         for(int i=0; i<specialty_doctorIDS.size(); i++){
-            if(specialty_doctorIDS.get(i).getDoctor()==currentDoctor.getId()){
+            if(specialty_doctorIDS.get(i).getDoctor()==currentDoctor){
                 currentSpecialty_doctor=specialty_doctorIDS.get(i).getId();
                 break;
             }
@@ -263,7 +261,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
     private ArrayList<schedule> filterHorarios(ArrayList<schedule_doctor> schedule_doctors, ArrayList<schedule> schedules){
         ArrayList<Integer> schedulesID= new ArrayList<>();
         for(int i=0; i<schedule_doctors.size(); i++) {
-            if(schedule_doctors.get(i).getDoctor()==currentDoctor.getId()){
+            if(schedule_doctors.get(i).getDoctor()==currentDoctor){
                 schedulesID.add(schedule_doctors.get(i).getSchedule());
                 schedule_doctorIDS.add(schedule_doctors.get(i));
             }
@@ -291,9 +289,8 @@ public class NuevaCitaActivity extends AppCompatActivity{
                     scheduleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int pos, long id) {
-                            currentSchedule=adapter3.getItem(pos);
+                            currentSchedule=adapter3.getItem(pos).getId();
                             getCurrentScheduleDoctor();
-                            Toast.makeText(context, currentSchedule.getStart_hour() ,Toast.LENGTH_SHORT).show();
 
                         }
                         public void onNothingSelected(AdapterView<?> parent) {
@@ -315,7 +312,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
 
     private void getCurrentScheduleDoctor(){
         for(int i=0; i<schedule_doctorIDS.size(); i++){
-            if(schedule_doctorIDS.get(i).getSchedule()==currentSchedule.getId()){
+            if(schedule_doctorIDS.get(i).getSchedule()==currentSchedule){
                 currentSchedule_doctor=schedule_doctorIDS.get(i).getId();
                 break;
             }

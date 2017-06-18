@@ -25,6 +25,8 @@ import retrofit2.Retrofit;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedID;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
+
 /**
  * Created by eduardo on 5/1/17.
  */
@@ -32,7 +34,6 @@ import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 public class FichaMedicaActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private Switch switch_info;
-    private api_connection conexion;
     private MedicalRecord mr;
 
     @Override
@@ -103,9 +104,9 @@ public class FichaMedicaActivity extends AppCompatActivity {
         mrLayout.add((TextView)findViewById(R.id.mrBloodType));
         mrLayout.get(0).setText(mr.getPatient().getPerson().getUser().getFirst_name()+" "+mr.getPatient().getPerson().getUser().getLast_name());
         mrLayout.get(1).setText(mr.getPatient().getPerson().getBorn_date());
-        //mrLayout.get(2).setText(mr.getHarmful_habits());
-        //mrLayout.get(3).setText(String.format("%1$.3f",mr.getWeight()));
-        //mrLayout.get(4).setText(String.format("%1$.3f",mr.getHeight()));
+        mrLayout.get(2).setText(mr.getHarmful_habits());
+        mrLayout.get(3).setText(String.format("%1$.1f kg.",mr.getWeight()));
+        mrLayout.get(4).setText(String.format("%1$.2f m.",mr.getHeight()));
         mrLayout.get(5).setText(mr.getBlood_type());
     }
     private void goMainScreen(){

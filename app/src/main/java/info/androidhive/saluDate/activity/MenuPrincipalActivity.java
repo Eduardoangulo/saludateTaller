@@ -31,6 +31,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.estado_user;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.patient1;
@@ -46,7 +47,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_principal);
-
+        conexion = new api_connection(getApplicationContext(), TAG, URL_desarrollo);
         verifyStatus();
 
         try{

@@ -9,12 +9,14 @@ public class appointment_processed {
     private String specialityName;
     private String date;
     private String hour;
+    private int id;
 
-    public appointment_processed(String doctorName, String specialityName, String date, String hour) {
+    public appointment_processed(String doctorName, String specialityName, String date, String hour, int id) {
         this.doctorName = doctorName;
         this.specialityName = specialityName;
         this.date = date;
         this.hour = hour;
+        this.setId(id);
     }
 
     public String getDoctorName() {
@@ -47,5 +49,13 @@ public class appointment_processed {
 
     public void setHour(String hour) {
         this.hour = hour;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

@@ -62,7 +62,7 @@
                            android:textSize="20sp"
                            android:layout_gravity="bottom"
                            android:gravity="bottom"
-                           android:text="Luis Echenique Torres"
+                           android:text=""
                            android:textAppearance="?android:textAppearanceMedium" />
 
                        <TextView
@@ -70,14 +70,14 @@
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:textStyle="bold"
-                           android:text="25 de marzo de 1995"
+                           android:text=""
                            android:textAppearance="?android:textAppearanceSmall" />
 
                        <TextView
                            android:id="@+id/mrOrganos"
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
-                           android:text="Dona órganos"
+                           android:text=""
                            android:textAppearance="?android:textAppearanceSmall" />
 
                    </LinearLayout>
@@ -98,7 +98,7 @@
                    android:layout_weight="1"
                    android:gravity="center_vertical"
                    android:paddingLeft="32dp"
-                   android:text="Peso"
+                   android:text="@string/weight"
                    android:textAppearance="?android:textAppearanceLarge"
                    android:textColor="@color/colorPrimary"
                    android:textStyle="bold" />
@@ -110,7 +110,7 @@
                    android:layout_weight="1"
                    android:gravity="center_vertical"
                    android:paddingLeft="32dp"
-                   android:text="200 kg."
+                   android:text=""
                    android:textAppearance="?android:textAppearanceMedium" />
 
                <TextView
@@ -120,7 +120,7 @@
                    android:layout_weight="1"
                    android:gravity="center_vertical"
                    android:paddingLeft="32dp"
-                   android:text="Talla"
+                   android:text="@string/height"
                    android:textAppearance="?android:textAppearanceLarge"
                    android:textColor="@color/colorPrimary"
                    android:textStyle="bold" />
@@ -132,7 +132,7 @@
                    android:layout_weight="1"
                    android:gravity="center_vertical"
                    android:paddingLeft="32dp"
-                   android:text="182 cm."
+                   android:text=""
                    android:textAppearance="?android:textAppearanceMedium" />
                <TextView
 
@@ -142,7 +142,7 @@
                    android:layout_weight="1"
                    android:gravity="center_vertical"
                    android:paddingLeft="32dp"
-                   android:text="Grupo sanguineo"
+                   android:text="@string/bloodType"
                    android:textAppearance="?android:textAppearanceLarge"
                    android:textColor="@color/colorPrimary"
                    android:textStyle="bold" />
@@ -154,7 +154,7 @@
                    android:layout_marginBottom="30dp"
                    android:layout_weight="1"
                    android:paddingLeft="32dp"
-                   android:text="O-"
+                   android:text=""
                    android:textAppearance="?android:textAppearanceMedium"
                    android:gravity="center_vertical" />
                <View
