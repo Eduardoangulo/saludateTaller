@@ -1,8 +1,5 @@
 package info.androidhive.saluDate.fragments;
 
-import android.content.Context;
-import android.hardware.SensorManager;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,16 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 
 import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.ConexionService.appointmentService;
-import info.androidhive.saluDate.activity.NuevaCitaActivity;
 import info.androidhive.saluDate.adapters.appointmentAdapter;
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.classes.appointment;
-<<<<<<< HEAD
 import info.androidhive.saluDate.classes.appointment_processed;
 import info.androidhive.saluDate.classes.doctor;
 import info.androidhive.saluDate.classes.schedule;
@@ -38,8 +32,6 @@ import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedI
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
-=======
->>>>>>> master
 
 
 public class OneFragment extends Fragment{
@@ -50,6 +42,7 @@ public class OneFragment extends Fragment{
     private ArrayList<doctor> doctors= new ArrayList<>();
     private ArrayList<schedule_doctor> schedule_doctors= new ArrayList<>();
     private ArrayList<schedule> schedules= new ArrayList<>();
+
     private ListView rootView;
     private appointmentAdapter adapter1;
 
@@ -71,6 +64,7 @@ public class OneFragment extends Fragment{
         adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
         conexion = new api_connection(getContext(), TAG, URL_desarrollo);
         getAppointments(conexion.getRetrofit());
+
         return view;
     }
     private void getAppointments(Retrofit retrofit) {
@@ -84,7 +78,7 @@ public class OneFragment extends Fragment{
                     appointments=response.body();
                     getSpecialityDoctor(conexion.getRetrofit());
                 } else {
-                        Log.e(TAG, " onResponse: " + response.errorBody());
+                    Log.e(TAG, " onResponse: " + response.errorBody());
                 }
             }
             @Override
@@ -114,7 +108,6 @@ public class OneFragment extends Fragment{
         });
     }
 
-<<<<<<< HEAD
     private void getDoctors(Retrofit retrofit) {
         appointmentService service = retrofit.create(appointmentService.class);
         Call<ArrayList<doctor>> Call = service.obtenerDoctores();
@@ -155,13 +148,6 @@ public class OneFragment extends Fragment{
             }
         });
     }
-=======
-        appointmentAdapter adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
-        adapter1.add(new appointment(R.drawable.user, "Diego Cayo", "Urología"));
-        adapter1.add(new appointment(R.drawable.user, "Emerson Carnero", "Cardiología"));
-        adapter1.add(new appointment(R.drawable.user, "Percy Moncada", "Pediatría"));
-        adapter1.add(new appointment(R.drawable.user, "Sindy Estuchi", "Obstetricia"));
->>>>>>> master
 
     private void getScheduleDoctor(Retrofit retrofit) {
         appointmentService service = retrofit.create(appointmentService.class);
@@ -217,7 +203,7 @@ public class OneFragment extends Fragment{
             }
         }
         for(int i=0; i<speciality_doctors.size(); i++){
-           speciality_doctorsID.add(speciality_doctors.get(i).getId());
+            speciality_doctorsID.add(speciality_doctors.get(i).getId());
         }
         for(int i=0; i<specialities.size(); i++){
             specialitiesID.add(specialities.get(i).getId());
@@ -240,8 +226,8 @@ public class OneFragment extends Fragment{
             String specialtyName=specialities.get(specialitiesID.indexOf(currentSpecialityDoctor.getSpeciality())).getName();
             String hora=schedules.get(schedulesID.indexOf(currentScheduleDoctor.getSchedule())).getStart_hour();
             String fecha=currentScheduleDoctor.getAvailability_date();
-                Log.i(TAG, specialtyName+" "+doctorName+" "+fecha+" "+hora);
-           citas.add(new appointment_processed(doctorName, specialtyName, hora, fecha, appointments.get(i).getId()));
+            Log.i(TAG, specialtyName+" "+doctorName+" "+fecha+" "+hora);
+            citas.add(new appointment_processed(doctorName, specialtyName, hora, fecha, appointments.get(i).getId()));
         }
         Log.i(TAG, "se generaron citas pa mostrar");
 

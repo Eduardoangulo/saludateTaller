@@ -43,14 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUser;
     private EditText editTextPass;
     private Button btnSimpleTabs;
-<<<<<<< HEAD
     private TextView txtOvidarContra;
 
-=======
-
-    //jorge.canales
-    //82524872
->>>>>>> master
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,12 +81,8 @@ public class LoginActivity extends AppCompatActivity {
         btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
                 attemptLogin(pacientes);
-                Toast.makeText(LoginActivity.this,getResources().getString(R.string.connection_error),Toast.LENGTH_LONG);
-=======
                 obtenerDatos(conexion.getRetrofit());
->>>>>>> master
             }
         });
     }

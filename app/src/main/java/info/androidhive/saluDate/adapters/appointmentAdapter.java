@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.classes.appointment_processed;
+import info.androidhive.saluDate.classes.speciality;
 
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.speciality_img;
 
@@ -32,7 +33,7 @@ public class appointmentAdapter extends ArrayAdapter<appointment_processed> {
             }
             appointment_processed currentAppointment = getItem(position);
 
-            TextView speciality = (TextView) listItemView.findViewById(R.id.specialtyText);
+            TextView specialty = (TextView) listItemView.findViewById(R.id.specialtyText);
             TextView doctorN = (TextView) listItemView.findViewById(R.id.doctorText);
             TextView hora = (TextView) listItemView.findViewById(R.id.hourText);
             TextView fecha = (TextView) listItemView.findViewById(R.id.dateText);
@@ -48,15 +49,11 @@ public class appointmentAdapter extends ArrayAdapter<appointment_processed> {
                 case "Obstetricia":speciality_img=R.mipmap.ic_launchrrrr;
                     ;break;
             }
-            speciality.setText(currentAppointment.getSpecialityName());
+            specialty.setText(currentAppointment.getSpecialityName());
             doctorN.setText(currentAppointment.getDoctorName());
             hora.setText(currentAppointment.getHour());
             fecha.setText(currentAppointment.getDate());
             img.setImageResource(speciality_img);
-
-            specialty.setText(currentAppointment.getSpecialty());
-            doctorN.setText(currentAppointment.getDoctorName());
-            img.setImageResource(currentAppointment.getImage());
 
             return listItemView;
 

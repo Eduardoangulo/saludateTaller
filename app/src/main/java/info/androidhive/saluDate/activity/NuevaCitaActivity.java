@@ -40,10 +40,6 @@ import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 
-/**
- * Created by gustavo on 03/05/17.
- */
-
 public class NuevaCitaActivity extends AppCompatActivity{
     private Toolbar toolbar;
     public TextView programar_cita;
@@ -293,13 +289,8 @@ public class NuevaCitaActivity extends AppCompatActivity{
                     scheduleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int pos, long id) {
-<<<<<<< HEAD
                             currentSchedule=adapter3.getItem(pos).getId();
                             getCurrentScheduleDoctor();
-=======
-                            currentSchedule=adapter3.getItem(pos);
-                            //Toast.makeText(context, currentSchedule.getStart_hour() ,Toast.LENGTH_SHORT).show();
->>>>>>> master
 
                         }
                         public void onNothingSelected(AdapterView<?> parent) {
