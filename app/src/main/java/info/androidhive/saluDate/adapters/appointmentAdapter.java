@@ -54,6 +54,10 @@ public class appointmentAdapter extends ArrayAdapter<appointment_processed> {
             fecha.setText(currentAppointment.getDate());
             img.setImageResource(speciality_img);
 
+            specialty.setText(currentAppointment.getSpecialty());
+            doctorN.setText(currentAppointment.getDoctorName());
+            img.setImageResource(currentAppointment.getImage());
+
             return listItemView;
 
     }

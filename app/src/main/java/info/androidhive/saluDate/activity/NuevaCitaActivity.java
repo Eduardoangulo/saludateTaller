@@ -293,8 +293,13 @@ public class NuevaCitaActivity extends AppCompatActivity{
                     scheduleSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         public void onItemSelected(AdapterView<?> parent, View view,
                                                    int pos, long id) {
+<<<<<<< HEAD
                             currentSchedule=adapter3.getItem(pos).getId();
                             getCurrentScheduleDoctor();
+=======
+                            currentSchedule=adapter3.getItem(pos);
+                            //Toast.makeText(context, currentSchedule.getStart_hour() ,Toast.LENGTH_SHORT).show();
+>>>>>>> master
 
                         }
                         public void onNothingSelected(AdapterView<?> parent) {
