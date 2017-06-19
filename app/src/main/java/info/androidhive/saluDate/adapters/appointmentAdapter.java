@@ -10,12 +10,16 @@ import android.widget.TextView;
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.classes.appointment_processed;
 
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.speciality_img;
+
 /**
  * Created by Luis on 05/05/2017.
  */
 
 public class appointmentAdapter extends ArrayAdapter<appointment_processed> {
     private int r;
+
+
     public appointmentAdapter(Activity context, int resource){
             super(context, resource);
             r=resource;
@@ -34,11 +38,21 @@ public class appointmentAdapter extends ArrayAdapter<appointment_processed> {
             TextView fecha = (TextView) listItemView.findViewById(R.id.dateText);
             ImageView img = (ImageView) listItemView.findViewById(R.id.pimage);
 
+        switch (currentAppointment.getSpecialityName()) {
+                case "Urologia": speciality_img=R.drawable.user;
+                    ;break;
+                case "Cardiologia":speciality_img=R.drawable.saludate_logo_200x45;
+                    ;break;
+                case "Pediatria":speciality_img=R.mipmap.ic_launcher;
+                    ;break;
+                case "Obstetricia":speciality_img=R.mipmap.ic_launchrrrr;
+                    ;break;
+            }
             speciality.setText(currentAppointment.getSpecialityName());
             doctorN.setText(currentAppointment.getDoctorName());
             hora.setText(currentAppointment.getHour());
             fecha.setText(currentAppointment.getDate());
-            //img.setImageResource(currentAppointment.getDoc().getSpecialty().getImg());
+            img.setImageResource(speciality_img);
 
             return listItemView;
 

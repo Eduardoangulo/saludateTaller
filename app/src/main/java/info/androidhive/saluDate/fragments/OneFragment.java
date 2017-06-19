@@ -1,5 +1,8 @@
 package info.androidhive.saluDate.fragments;
 
+import android.content.Context;
+import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,10 +13,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.ConexionService.appointmentService;
+import info.androidhive.saluDate.activity.NuevaCitaActivity;
 import info.androidhive.saluDate.adapters.appointmentAdapter;
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.classes.appointment;
@@ -42,7 +47,6 @@ public class OneFragment extends Fragment{
     private ArrayList<doctor> doctors= new ArrayList<>();
     private ArrayList<schedule_doctor> schedule_doctors= new ArrayList<>();
     private ArrayList<schedule> schedules= new ArrayList<>();
-
     private ListView rootView;
     private appointmentAdapter adapter1;
 
@@ -64,7 +68,6 @@ public class OneFragment extends Fragment{
         adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
         conexion = new api_connection(getContext(), TAG, URL_desarrollo);
         getAppointments(conexion.getRetrofit());
-
         return view;
     }
     private void getAppointments(Retrofit retrofit) {

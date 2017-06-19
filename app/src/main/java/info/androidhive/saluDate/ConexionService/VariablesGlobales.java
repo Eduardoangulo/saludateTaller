@@ -17,4 +17,5 @@ public class VariablesGlobales {
     public static ArrayList<patient>pacientes;
     public static patient patient1;
     public static api_connection conexion;
+    public static int speciality_img;
 }

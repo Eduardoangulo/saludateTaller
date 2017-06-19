@@ -1,6 +1,8 @@
 package info.androidhive.saluDate.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -186,6 +189,5 @@ public class MenuPrincipalActivity extends AppCompatActivity {
         {
             goLoginScreen();
         }
-    };
-
+    }
 }

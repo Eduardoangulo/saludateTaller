@@ -1,11 +1,14 @@
 package info.androidhive.saluDate.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import java.net.InetAddress;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,5 +41,4 @@ public class SplashScreenActivity extends AppCompatActivity {
         Timer timer = new Timer();
         timer.schedule(task, SPLASH_SCREEN_DELAY);
     }
-
 }

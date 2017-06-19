@@ -1,15 +1,21 @@
 package info.androidhive.saluDate.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import info.androidhive.materialtabs.R;
@@ -17,6 +23,7 @@ import info.androidhive.saluDate.ConexionService.patientService;
 import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.classes.patient;
 import info.androidhive.saluDate.classes.user;
+import info.androidhive.saluDate.fragments.CustomDialogClass;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextUser;
     private EditText editTextPass;
     private Button btnSimpleTabs;
-
+    private TextView txtOvidarContra;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +59,39 @@ public class LoginActivity extends AppCompatActivity {
 
         btnSimpleTabs = (Button) findViewById(R.id.btnIniciarSesion);
         editTextUser = (EditText) findViewById(R.id.edtxtUser);
+        txtOvidarContra=(TextView)findViewById(R.id.txtOvidarContra);
+        txtOvidarContra.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAlertDialog();
+            }
+        });
+
         editTextPass = (EditText) findViewById(R.id.edtxtPass);
+        editTextPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        editTextUser.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+        editTextPass.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+
+        txtOvidarContra=(TextView)findViewById(R.id.txtOvidarContra);
+
+            obtenerDatos(conexion.getRetrofit());
+            Toast.makeText(LoginActivity.this,getResources().getString(R.string.connection_error),Toast.LENGTH_LONG);
+
 
         btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //conexion.retrofitLoad();
-                obtenerDatos(conexion.getRetrofit());
+                attemptLogin(pacientes);
+                Toast.makeText(LoginActivity.this,getResources().getString(R.string.connection_error),Toast.LENGTH_LONG);
             }
         });
+    }
+    //Only password keyboard
+    private class NumericKeyBoardTransformationMethod extends PasswordTransformationMethod {
+        @Override
+        public CharSequence getTransformation(CharSequence source, View view) {
+            return source;
+        }
     }
 
     //obtiene el array de patients de la api
@@ -72,9 +103,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ArrayList<patient>> call, Response<ArrayList<patient>> response) {
                 if (response.isSuccessful()) {
-                    //aca asigna lo cojido al array
                     pacientes = response.body();
-                    attemptLogin(pacientes);
+                    //attemptLogin(pacientes);
                 } else {
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.connection_error), Toast.LENGTH_SHORT).show();
                     Log.e(TAG, " onResponse: " + response.errorBody());
@@ -157,6 +187,11 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent= new Intent(this, MenuPrincipalActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+
+    }
+    private void showAlertDialog(){
+        CustomDialogClass cdd=new CustomDialogClass(LoginActivity.this);
+        cdd.show();
     }
 
 }
