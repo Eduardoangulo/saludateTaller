@@ -11,13 +11,15 @@ public class appointment {
     private Integer patient;
     private String description;
     private String annotations;
+    private String status;
 
-    public appointment(Integer schedule_doctor, Integer speciality_doctor, Integer patient, String description, String annotations){
+    public appointment(Integer schedule_doctor, Integer speciality_doctor, Integer patient, String description, String annotations, String status){
         this.schedule_doctor=schedule_doctor;
         this.speciality_doctor=speciality_doctor;
         this.patient=patient;
         this.description = description;
         this.annotations=annotations;
+        this.setStatus(status);
     }
 
     public Integer getId() {
@@ -66,5 +68,13 @@ public class appointment {
 
     public void setAnnotations(String annotations) {
         this.annotations = annotations;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

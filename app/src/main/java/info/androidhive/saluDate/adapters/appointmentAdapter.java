@@ -37,6 +37,7 @@ public class appointmentAdapter extends ArrayAdapter<appointment_processed> {
             TextView doctorN = (TextView) listItemView.findViewById(R.id.doctorText);
             TextView hora = (TextView) listItemView.findViewById(R.id.hourText);
             TextView fecha = (TextView) listItemView.findViewById(R.id.dateText);
+            TextView status = (TextView) listItemView.findViewById(R.id.statusText);
             ImageView img = (ImageView) listItemView.findViewById(R.id.pimage);
 
         switch (currentAppointment.getSpecialityName()) {
@@ -53,6 +54,7 @@ public class appointmentAdapter extends ArrayAdapter<appointment_processed> {
             doctorN.setText(currentAppointment.getDoctorName());
             hora.setText(currentAppointment.getHour());
             fecha.setText(currentAppointment.getDate());
+            status.setText(currentAppointment.getStatus());
             img.setImageResource(speciality_img);
 
             return listItemView;

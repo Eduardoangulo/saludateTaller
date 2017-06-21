@@ -1,5 +1,8 @@
 package info.androidhive.saluDate.fragments;
 
+import android.content.Context;
+import android.hardware.SensorManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -197,9 +200,10 @@ public class OneFragment extends Fragment{
         ArrayList<Integer> schedulesID= new ArrayList<>();
         ArrayList<appointment_processed> citas= new ArrayList<>();
         for(int i=0; i<appointments.size(); i++){
-            if(appointments.get(i).getPatient()!=LogedID){
+            if(appointments.get(i).getPatient()!=LogedID || !appointments.get(i).getStatus().equals("Por Atender")){
                 appointments.remove(i);
                 i--;
+                    Log.i(TAG, "Removio un appointment");
             }
         }
         for(int i=0; i<speciality_doctors.size(); i++){
@@ -227,7 +231,7 @@ public class OneFragment extends Fragment{
             String hora=schedules.get(schedulesID.indexOf(currentScheduleDoctor.getSchedule())).getStart_hour();
             String fecha=currentScheduleDoctor.getAvailability_date();
             Log.i(TAG, specialtyName+" "+doctorName+" "+fecha+" "+hora);
-            citas.add(new appointment_processed(doctorName, specialtyName, hora, fecha, appointments.get(i).getId()));
+            citas.add(new appointment_processed(doctorName, specialtyName, hora, fecha, appointments.get(i).getStatus(), appointments.get(i).getId()));
         }
         Log.i(TAG, "se generaron citas pa mostrar");
 

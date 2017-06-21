@@ -14,20 +14,21 @@
         android:layout_width="0dp"
         android:scaleType="fitCenter"
         android:layout_weight="1"
+        android:layout_gravity="center_vertical"
         />
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_weight="3"
+        android:layout_gravity="center_vertical"
         >
 
         <TextView
             android:id="@+id/specialtyText"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
             android:paddingLeft="8dp"
             android:textStyle="bold"
             android:text="Pediatría"
@@ -40,7 +41,18 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:textSize="13dp"
-            android:text="Dr. Eduardo Angulo Luna Pizarro"
+            android:text="Dr. Eduardo Angulo"
+            android:textAppearance="?android:textAppearanceMedium"
+            />
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:text="Por Atender"
             android:textAppearance="?android:textAppearanceMedium"
             />
 

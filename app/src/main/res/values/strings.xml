@@ -11,6 +11,11 @@
     <string name="height">Talla</string>
     <string name="weight">Peso</string>
 
+
+    <string name="pendient">Por Atender</string>
+    <string name="done">Atendido</string>
+    <string name="canceled">Cancelado</string>
+
     <string name="title_activity_menu_principal">SaluDate</string>
     <string name="title_activity_nueva_cita">Nueva Cita</string>
     <string name="title_activity_ficha_medica">Ficha Médica</string>

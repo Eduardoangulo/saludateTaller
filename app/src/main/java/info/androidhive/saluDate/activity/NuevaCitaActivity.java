@@ -86,7 +86,7 @@ public class NuevaCitaActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if(currentSchedule_doctor!=0){
                     Log.i(TAG, "Entró a nueva cita");
-                    appointment cita= new appointment(currentSchedule_doctor, currentSpecialty_doctor, LogedID, "desde app", "desde app");
+                    appointment cita= new appointment(currentSchedule_doctor, currentSpecialty_doctor, LogedID, "desde app", "desde app", getResources().getString(R.string.pendient));
                     appointmentService service = conexion.getRetrofit().create(appointmentService.class);
                     Call<appointment> Call = service.crearNuevaCita(cita);
                     Call.enqueue(new Callback<appointment>() {
