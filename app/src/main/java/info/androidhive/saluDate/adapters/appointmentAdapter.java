@@ -41,13 +41,13 @@ public class appointmentAdapter extends ArrayAdapter<appointment_processed> {
             ImageView img = (ImageView) listItemView.findViewById(R.id.pimage);
 
         switch (currentAppointment.getSpecialityName()) {
-                case "Urologia": speciality_img=R.drawable.user;
+                case "Urologia": speciality_img=R.drawable.urologia;
                     ;break;
-                case "Cardiologia":speciality_img=R.drawable.saludate_logo_200x45;
+                case "Cardiologia":speciality_img=R.drawable.cardiologia;
                     ;break;
-                case "Pediatria":speciality_img=R.mipmap.ic_launcher;
+                case "Pediatria":speciality_img=R.drawable.pediatria;
                     ;break;
-                case "Obstetricia":speciality_img=R.mipmap.ic_launchrrrr;
+                case "Obstetricia":speciality_img=R.drawable.obstetricia;
                     ;break;
             }
             specialty.setText(currentAppointment.getSpecialityName());
