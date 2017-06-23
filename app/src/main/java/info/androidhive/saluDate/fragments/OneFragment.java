@@ -1,12 +1,14 @@
 package info.androidhive.saluDate.fragments;
 
-import android.content.Context;
-import android.hardware.SensorManager;
-import android.net.ConnectivityManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 
 import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.ConexionService.appointmentService;
+import info.androidhive.saluDate.activity.FichaMedicaActivity;
+import info.androidhive.saluDate.activity.MenuPrincipalActivity;
 import info.androidhive.saluDate.adapters.appointmentAdapter;
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.classes.appointment;
@@ -31,11 +35,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
+import static android.widget.AbsListView.CHOICE_MODE_SINGLE;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedID;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
-
 
 public class OneFragment extends Fragment{
 
@@ -48,6 +52,11 @@ public class OneFragment extends Fragment{
 
     private ListView rootView;
     private appointmentAdapter adapter1;
+
+    public static int posicion;
+    public static boolean item_elegido=false;
+    public static ArrayList<appointment_processed> citas;
+    public static ActionMode mActionMode;
 
     public OneFragment() {
         // Required empty public constructor
@@ -64,13 +73,87 @@ public class OneFragment extends Fragment{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         rootView= (ListView) view.findViewById(R.id.list);
+        rootView.canScrollVertically(0);
+        rootView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        view.setActivated(true);
+
         adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
         conexion = new api_connection(getContext(), TAG, URL_desarrollo);
         getAppointments(conexion.getRetrofit());
 
+        rootView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                if (mActionMode != null) {return false;
+                }
+                posicion=position;
+                view.setSelected(true);
+                item_elegido=true;
+
+                //mActionMode = getActivity().startActionMode(mActionModeCallback);
+
+                // Start the CAB using the ActionMode.Callback defined above
+
+                return true;
+            }
+        });
+
         return view;
     }
-    private void getAppointments(Retrofit retrofit) {
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.deleteAppointment:
+                DeleteAppointment();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void DeleteAppointment(){
+        if(item_elegido){
+            cancelarCita(conexion.getRetrofit());
+            item_elegido = false;
+            Toast.makeText(rootView.getContext(),"Se elimino la cita seleccionada",Toast.LENGTH_LONG).show();
+            getAppointments(conexion.getRetrofit());
+        }
+        else {
+            Toast.makeText(rootView.getContext(),"Elija un elemento de la lista",Toast.LENGTH_LONG).show();
+        }
+    }
+    private void cancelarCita(Retrofit retrofit){
+
+        appointmentService service = retrofit.create(appointmentService.class);
+        service.cancelarCita(citas.get(posicion).getId()).enqueue(new Callback<appointment>() {
+
+            @Override
+            public void onResponse(Call<appointment> call, Response<appointment> response) {
+                try
+                {
+                    if (response.isSuccessful()){
+                        Log.i(TAG, " Se elimino la fila: " + response.body().getId());
+                    } else {
+                        Log.e(TAG, " onResponse: " + response.errorBody().toString());
+                    }
+                }
+                catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
+
+            }
+            @Override
+            public void onFailure(Call<appointment> call, Throwable t) {
+                Log.e(TAG, " onFailure: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getAppointments(Retrofit retrofit) {
         appointmentService service = retrofit.create(appointmentService.class);
         Call<ArrayList<appointment>> Call = service.obtenerCitas();
         Call.enqueue(new Callback<ArrayList<appointment>>() {
@@ -198,7 +281,7 @@ public class OneFragment extends Fragment{
         ArrayList<Integer> doctorsID= new ArrayList<>();
         ArrayList<Integer> schedule_doctorsID= new ArrayList<>();
         ArrayList<Integer> schedulesID= new ArrayList<>();
-        ArrayList<appointment_processed> citas= new ArrayList<>();
+        citas= new ArrayList<>();
         for(int i=0; i<appointments.size(); i++){
             if(appointments.get(i).getPatient()!=LogedID || !appointments.get(i).getStatus().equals("Por Atender")){
                 appointments.remove(i);
