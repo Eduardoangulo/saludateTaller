@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import info.androidhive.saluDate.classes.MedicalRecord;
 import info.androidhive.saluDate.classes.appointment;
+import info.androidhive.saluDate.classes.appointment_processed;
 import info.androidhive.saluDate.classes.doctor;
 import info.androidhive.saluDate.classes.patient;
 import info.androidhive.saluDate.classes.schedule;
@@ -39,7 +40,6 @@ public interface appointmentService {
     @GET("doctor/schedule-doctor-api/")
     Call<ArrayList<schedule_doctor>> obtenerDoctorHorario ();
 
-
     //Mostrar citas
     @GET("patient/appointment-api/")
     Call<ArrayList<appointment>> obtenerCitas();
@@ -48,7 +48,7 @@ public interface appointmentService {
     @POST("patient/appointment-api/")
     Call<appointment> crearNuevaCita(@Body appointment appointment);
 
-    @DELETE("patient/appointment-api/{id}/")
-    Call<appointment> cancelarCita(@Path("id") Integer id);
+    @PUT("patient/appointment-api/{id}/")
+    Call<appointment> cancelarCita(@Path("id") Integer id, @Body appointment_processed appointment);
 
 }

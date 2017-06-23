@@ -1,8 +1,6 @@
 package info.androidhive.saluDate.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -18,19 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.sun.mail.imap.protocol.Item;
-
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.ConexionService.api_connection;
-import info.androidhive.saluDate.ConexionService.appointmentService;
 import info.androidhive.saluDate.ConexionService.patientService;
-import info.androidhive.saluDate.adapters.appointmentAdapter;
-import info.androidhive.saluDate.classes.appointment;
-import info.androidhive.saluDate.classes.appointment_processed;
 import info.androidhive.saluDate.classes.patient;
 import info.androidhive.saluDate.fragments.OneFragment;
 import info.androidhive.saluDate.fragments.TwoFragment;
@@ -44,9 +35,6 @@ import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_de
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.estado_user;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.patient1;
-import static info.androidhive.saluDate.fragments.OneFragment.citas;
-import static info.androidhive.saluDate.fragments.OneFragment.item_elegido;
-import static info.androidhive.saluDate.fragments.OneFragment.posicion;
 
 public class MenuPrincipalActivity extends AppCompatActivity {
 
@@ -140,52 +128,11 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.log_out),Toast.LENGTH_LONG).show();
                 LogOut();
                 return true;
-            case R.id.deleteAppointment:
-                DeleteAppointment();
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void DeleteAppointment(){
-        if(item_elegido){
-
-            cancelarCita(conexion.getRetrofit());
-            item_elegido = false;
-            Toast.makeText(getApplicationContext(),"Se elimino la cita seleccionada",Toast.LENGTH_LONG).show();
-        }
-        else {
-            Toast.makeText(getApplicationContext(),"Elija un elemento de la lista",Toast.LENGTH_LONG).show();
-        }
-    }
-    private void cancelarCita(Retrofit retrofit){
-
-        appointmentService service = retrofit.create(appointmentService.class);
-        service.cancelarCita(citas.get(posicion).getId()).enqueue(new Callback<appointment>() {
-
-            @Override
-            public void onResponse(Call<appointment> call, Response<appointment> response) {
-                try
-                {
-                    if (response.isSuccessful()){
-                        Log.i(TAG, " Se elimino la fila: " + response.body().getId());
-                    } else {
-                        Log.e(TAG, " onResponse: " + response.errorBody().toString());
-                    }
-                }
-                catch(Exception e)
-                {
-                    e.printStackTrace();
-                }
-
-            }
-            @Override
-            public void onFailure(Call<appointment> call, Throwable t) {
-                Log.e(TAG, " onFailure: " + t.getMessage());
-            }
-        });
-    }
 
     private void goLoginScreen() {
         Intent intent = new Intent(this, LoginActivity.class);

@@ -1,7 +1,7 @@
 package info.androidhive.saluDate.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ActionMode;
@@ -19,8 +19,6 @@ import java.util.ArrayList;
 
 import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.ConexionService.appointmentService;
-import info.androidhive.saluDate.activity.FichaMedicaActivity;
-import info.androidhive.saluDate.activity.MenuPrincipalActivity;
 import info.androidhive.saluDate.adapters.appointmentAdapter;
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.classes.appointment;
@@ -35,7 +33,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-import static android.widget.AbsListView.CHOICE_MODE_SINGLE;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedID;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
@@ -99,8 +96,19 @@ public class OneFragment extends Fragment{
                 return true;
             }
         });
-
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_fragment1,menu);
     }
 
     @Override
@@ -116,7 +124,8 @@ public class OneFragment extends Fragment{
 
     private void DeleteAppointment(){
         if(item_elegido){
-            cancelarCita(conexion.getRetrofit());
+            citas.get(posicion).setStatus("Cancelado");
+            cancelarCita(conexion.getRetrofit(),citas.get(posicion));
             item_elegido = false;
             Toast.makeText(rootView.getContext(),"Se elimino la cita seleccionada",Toast.LENGTH_LONG).show();
             getAppointments(conexion.getRetrofit());
@@ -125,10 +134,10 @@ public class OneFragment extends Fragment{
             Toast.makeText(rootView.getContext(),"Elija un elemento de la lista",Toast.LENGTH_LONG).show();
         }
     }
-    private void cancelarCita(Retrofit retrofit){
+    private void cancelarCita(Retrofit retrofit, appointment_processed appointment){
 
         appointmentService service = retrofit.create(appointmentService.class);
-        service.cancelarCita(citas.get(posicion).getId()).enqueue(new Callback<appointment>() {
+        service.cancelarCita(appointment.getId(),appointment).enqueue(new Callback<appointment>() {
 
             @Override
             public void onResponse(Call<appointment> call, Response<appointment> response) {
