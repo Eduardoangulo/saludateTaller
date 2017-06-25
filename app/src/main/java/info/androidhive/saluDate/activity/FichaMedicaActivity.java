@@ -2,6 +2,7 @@ package info.androidhive.saluDate.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -67,6 +69,7 @@ public class FichaMedicaActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
 
     //obtener datooos
@@ -99,6 +102,18 @@ public class FichaMedicaActivity extends AppCompatActivity {
 
     private void displayMedicalRecord(MedicalRecord mr){
         ArrayList<TextView> mrLayout= new ArrayList<>();
+        int id_image;
+
+        switch (mr.getPatient().getPerson().getGender()){
+            case "M":id_image =R.drawable.profile_man;break;
+            case "F":id_image =R.drawable.profile_woman;break;
+            default:id_image = R.drawable.user;
+        }
+
+        ImageView imageView = (ImageView)findViewById(R.id.pimage);
+        imageView.setImageResource(id_image);
+
+        //mrLayout.add((ImageView)findViewById(R.id.pimage))
         mrLayout.add((TextView)findViewById(R.id.mrName));
         mrLayout.add((TextView)findViewById(R.id.mrBDay));
         mrLayout.add((TextView)findViewById(R.id.mrOrganos));
@@ -111,6 +126,9 @@ public class FichaMedicaActivity extends AppCompatActivity {
         mrLayout.get(3).setText(String.format("%1$.1f kg.",mr.getWeight()));
         mrLayout.get(4).setText(String.format("%1$.2f m.",mr.getHeight()));
         mrLayout.get(5).setText(mr.getBlood_type());
+
+
+
     }
     private void goMainScreen(){
         Intent intent= new Intent(this, MenuPrincipalActivity.class);

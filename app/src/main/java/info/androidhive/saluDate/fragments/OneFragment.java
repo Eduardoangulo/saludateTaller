@@ -1,5 +1,6 @@
 package info.androidhive.saluDate.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,6 +48,13 @@ public class OneFragment extends Fragment{
     private ArrayList<schedule_doctor> schedule_doctors= new ArrayList<>();
     private ArrayList<schedule> schedules= new ArrayList<>();
 
+    private ArrayList<Integer> speciality_doctorsID= new ArrayList<>();
+    private ArrayList<Integer> specialitiesID= new ArrayList<>();
+    private ArrayList<Integer> doctorsID= new ArrayList<>();
+    private ArrayList<Integer> schedule_doctorsID= new ArrayList<>();
+    private ArrayList<Integer> schedulesID= new ArrayList<>();
+    private ArrayList<Integer> appointmentsID= new ArrayList<>();
+
     private ListView rootView;
     private appointmentAdapter adapter1;
 
@@ -78,24 +86,17 @@ public class OneFragment extends Fragment{
         conexion = new api_connection(getContext(), TAG, URL_desarrollo);
         getAppointments(conexion.getRetrofit());
 
-        rootView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        rootView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view,
+            public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                if (mActionMode != null) {return false;
-                }
                 posicion=position;
                 view.setSelected(true);
                 item_elegido=true;
-
-                //mActionMode = getActivity().startActionMode(mActionModeCallback);
-
-                // Start the CAB using the ActionMode.Callback defined above
-
-                return true;
             }
         });
+
         return view;
     }
 
@@ -111,6 +112,7 @@ public class OneFragment extends Fragment{
         inflater.inflate(R.menu.menu_fragment1,menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -124,17 +126,33 @@ public class OneFragment extends Fragment{
 
     private void DeleteAppointment(){
         if(item_elegido){
-            citas.get(posicion).setStatus("Cancelado");
-            cancelarCita(conexion.getRetrofit(),citas.get(posicion));
+
+            int currentAppointment=citas.get(posicion).getId();
+
+            appointments.get(appointmentsID.indexOf(currentAppointment)).setStatus("Cancelado");
+
+            cancelarCita(conexion.getRetrofit(),appointments.get(appointmentsID.indexOf(currentAppointment)));
             item_elegido = false;
-            Toast.makeText(rootView.getContext(),"Se elimino la cita seleccionada",Toast.LENGTH_LONG).show();
-            getAppointments(conexion.getRetrofit());
+
+            Toast.makeText(rootView.getContext(),"Se elimino la cita seleccionada",Toast.LENGTH_SHORT).show();
+
+            citas.remove(posicion);
+            adapter1.addAll(citas);
+            rootView.setAdapter(adapter1);
+
+            Intent intent = getActivity().getIntent();
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            getActivity().finish();
+            startActivity(intent);
+            getActivity().overridePendingTransition(0,0);
         }
         else {
-            Toast.makeText(rootView.getContext(),"Elija un elemento de la lista",Toast.LENGTH_LONG).show();
+            Toast.makeText(rootView.getContext(),"Elija un elemento de la lista",Toast.LENGTH_SHORT).show();
         }
     }
-    private void cancelarCita(Retrofit retrofit, appointment_processed appointment){
+
+
+    private void cancelarCita(Retrofit retrofit, appointment appointment){
 
         appointmentService service = retrofit.create(appointmentService.class);
         service.cancelarCita(appointment.getId(),appointment).enqueue(new Callback<appointment>() {
@@ -285,17 +303,16 @@ public class OneFragment extends Fragment{
         });
     }
     private void placeholder(){
-        ArrayList<Integer> speciality_doctorsID= new ArrayList<>();
-        ArrayList<Integer> specialitiesID= new ArrayList<>();
-        ArrayList<Integer> doctorsID= new ArrayList<>();
-        ArrayList<Integer> schedule_doctorsID= new ArrayList<>();
-        ArrayList<Integer> schedulesID= new ArrayList<>();
+
         citas= new ArrayList<>();
         for(int i=0; i<appointments.size(); i++){
             if(appointments.get(i).getPatient()!=LogedID || !appointments.get(i).getStatus().equals("Por Atender")){
                 appointments.remove(i);
                 i--;
                     Log.i(TAG, "Removio un appointment");
+            }
+            else{
+                appointmentsID.add(appointments.get(i).getId());
             }
         }
         for(int i=0; i<speciality_doctors.size(); i++){

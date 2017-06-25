@@ -1,6 +1,7 @@
 package info.androidhive.saluDate.activity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -41,6 +42,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +59,7 @@ public class MenuPrincipalActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +67,36 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 startActivity(new Intent(MenuPrincipalActivity.this, NuevaCitaActivity.class));
             }
         });
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // noop
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // fire event if the "My Site" page is being scrolled so the fragment can
+                // animate its fab to match
+                if (position == 1) {
+                    fab.setVisibility(View.GONE);
+                }
+                if (position == 0) {
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+
     }
 
     private void setupViewPager(ViewPager viewPager) {

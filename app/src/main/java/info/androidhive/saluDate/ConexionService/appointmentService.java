@@ -49,6 +49,6 @@ public interface appointmentService {
     Call<appointment> crearNuevaCita(@Body appointment appointment);
 
     @PUT("patient/appointment-api/{id}/")
-    Call<appointment> cancelarCita(@Path("id") Integer id, @Body appointment_processed appointment);
+    Call<appointment> cancelarCita(@Path("id") Integer id, @Body appointment appointment);
 
 }

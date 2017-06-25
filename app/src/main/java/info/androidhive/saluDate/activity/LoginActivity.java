@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextPass = (EditText) findViewById(R.id.edtxtPass);
         editTextPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         editTextUser.setTransformationMethod(new NumericKeyBoardTransformationMethod());
-        editTextPass.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+        //editTextPass.setTransformationMethod(new NumericKeyBoardTransformationMethod());
 
         txtOvidarContra=(TextView)findViewById(R.id.txtOvidarContra);
 
