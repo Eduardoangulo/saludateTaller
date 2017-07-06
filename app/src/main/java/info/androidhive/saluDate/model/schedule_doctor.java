@@ -1,4 +1,4 @@
-package info.androidhive.saluDate.classes;
+package info.androidhive.saluDate.model;
 
 /**
  * Created by Luis on 16/06/2017.

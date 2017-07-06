@@ -1,8 +1,6 @@
 package info.androidhive.saluDate.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,14 +13,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.ConexionService.patientService;
 import info.androidhive.saluDate.ConexionService.api_connection;
-import info.androidhive.saluDate.classes.patient;
-import info.androidhive.saluDate.classes.user;
+import info.androidhive.saluDate.model.patient;
+import info.androidhive.saluDate.model.user;
 import info.androidhive.saluDate.fragments.CustomDialogClass;
 import retrofit2.Call;
 import retrofit2.Callback;

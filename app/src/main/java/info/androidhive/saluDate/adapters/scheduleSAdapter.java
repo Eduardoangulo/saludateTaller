@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import info.androidhive.materialtabs.R;
-import info.androidhive.saluDate.classes.schedule;
+import info.androidhive.saluDate.model.schedule;
 
 /**
  * Created by Luis on 16/06/2017.

@@ -2,18 +2,14 @@ package info.androidhive.saluDate.ConexionService;
 
 import java.util.ArrayList;
 
-import info.androidhive.saluDate.classes.MedicalRecord;
-import info.androidhive.saluDate.classes.appointment;
-import info.androidhive.saluDate.classes.appointment_processed;
-import info.androidhive.saluDate.classes.doctor;
-import info.androidhive.saluDate.classes.patient;
-import info.androidhive.saluDate.classes.schedule;
-import info.androidhive.saluDate.classes.schedule_doctor;
-import info.androidhive.saluDate.classes.speciality;
-import info.androidhive.saluDate.classes.speciality_doctor;
+import info.androidhive.saluDate.model.appointment;
+import info.androidhive.saluDate.model.doctor;
+import info.androidhive.saluDate.model.schedule;
+import info.androidhive.saluDate.model.schedule_doctor;
+import info.androidhive.saluDate.model.speciality;
+import info.androidhive.saluDate.model.speciality_doctor;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;

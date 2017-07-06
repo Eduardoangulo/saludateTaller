@@ -1,4 +1,6 @@
-package info.androidhive.saluDate.classes;
+package info.androidhive.saluDate.model;
+
+import info.androidhive.saluDate.model.patient;
 
 /**
  * Created by Luis on 16/06/2017.
@@ -6,7 +8,7 @@ package info.androidhive.saluDate.classes;
 
 public class MedicalRecord {
     private Integer id;
-    private patient patient;
+    private info.androidhive.saluDate.model.patient patient;
     private String blood_type;
     private double weight;
     private double height;

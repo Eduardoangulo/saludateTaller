@@ -14,13 +14,13 @@ import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.ConexionService.appointmentService;
 import info.androidhive.saluDate.adapters.appointmentAdapter;
 import info.androidhive.materialtabs.R;
-import info.androidhive.saluDate.classes.appointment;
+import info.androidhive.saluDate.model.appointment;
 import info.androidhive.saluDate.classes.appointment_processed;
-import info.androidhive.saluDate.classes.doctor;
-import info.androidhive.saluDate.classes.schedule;
-import info.androidhive.saluDate.classes.schedule_doctor;
-import info.androidhive.saluDate.classes.speciality;
-import info.androidhive.saluDate.classes.speciality_doctor;
+import info.androidhive.saluDate.model.doctor;
+import info.androidhive.saluDate.model.schedule;
+import info.androidhive.saluDate.model.schedule_doctor;
+import info.androidhive.saluDate.model.speciality;
+import info.androidhive.saluDate.model.speciality_doctor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +30,7 @@ import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedI
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.historialCitas;
 
 
 public class TwoFragment extends Fragment {
@@ -240,7 +241,7 @@ public class TwoFragment extends Fragment {
             citas.add(new appointment_processed(doctorName, specialtyName, hora, fecha, appointments.get(i).getStatus(), appointments.get(i).getId()));
         }
         Log.i(TAG, "se generaron citas pa mostrar");
-
+        historialCitas=citas;
         adapter1.addAll(citas);
         rootView.setAdapter(adapter1);
     }

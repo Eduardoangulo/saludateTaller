@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import info.androidhive.materialtabs.R;
-import info.androidhive.saluDate.classes.doctor;
+import info.androidhive.saluDate.model.doctor;
 
 /**
  * Created by Luis on 16/06/2017.

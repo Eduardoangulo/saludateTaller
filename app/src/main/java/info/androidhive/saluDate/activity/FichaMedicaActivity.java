@@ -1,9 +1,6 @@
 package info.androidhive.saluDate.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +12,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.ConexionService.patientService;
-import info.androidhive.saluDate.classes.MedicalRecord;
+import info.androidhive.saluDate.model.MedicalRecord;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

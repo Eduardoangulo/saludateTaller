@@ -1,8 +1,10 @@
-package info.androidhive.saluDate.classes;
+package info.androidhive.saluDate.model;
 
-    public class person {
+import info.androidhive.saluDate.model.user;
+
+public class person {
         private Integer user_id;
-        private user user;
+        private info.androidhive.saluDate.model.user user;
         private String gender;
         private String dni;
         private String home_address;

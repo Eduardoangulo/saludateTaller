@@ -1,7 +1,6 @@
 package info.androidhive.saluDate.activity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -23,7 +22,7 @@ import java.util.List;
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.ConexionService.patientService;
-import info.androidhive.saluDate.classes.patient;
+import info.androidhive.saluDate.model.patient;
 import info.androidhive.saluDate.fragments.OneFragment;
 import info.androidhive.saluDate.fragments.TwoFragment;
 import retrofit2.Call;

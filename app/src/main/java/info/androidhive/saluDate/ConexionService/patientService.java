@@ -3,8 +3,8 @@ package info.androidhive.saluDate.ConexionService;
 
 import java.util.ArrayList;
 
-import info.androidhive.saluDate.classes.MedicalRecord;
-import info.androidhive.saluDate.classes.patient;
+import info.androidhive.saluDate.model.MedicalRecord;
+import info.androidhive.saluDate.model.patient;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

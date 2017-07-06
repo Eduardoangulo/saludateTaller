@@ -1,9 +1,7 @@
 package info.androidhive.saluDate.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +13,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 
 import info.androidhive.materialtabs.R;
@@ -23,13 +20,13 @@ import info.androidhive.saluDate.ConexionService.api_connection;
 import info.androidhive.saluDate.ConexionService.appointmentService;
 import info.androidhive.saluDate.adapters.doctorSAdapter;
 import info.androidhive.saluDate.adapters.scheduleSAdapter;
-import info.androidhive.saluDate.classes.appointment;
-import info.androidhive.saluDate.classes.doctor;
-import info.androidhive.saluDate.classes.schedule;
-import info.androidhive.saluDate.classes.schedule_doctor;
-import info.androidhive.saluDate.classes.speciality;
+import info.androidhive.saluDate.model.appointment;
+import info.androidhive.saluDate.model.doctor;
+import info.androidhive.saluDate.model.schedule;
+import info.androidhive.saluDate.model.schedule_doctor;
+import info.androidhive.saluDate.model.speciality;
 import info.androidhive.saluDate.adapters.specialitySAdapter;
-import info.androidhive.saluDate.classes.speciality_doctor;
+import info.androidhive.saluDate.model.speciality_doctor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +35,6 @@ import retrofit2.Retrofit;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedID;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
-import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 
 public class NuevaCitaActivity extends AppCompatActivity{
     private Toolbar toolbar;

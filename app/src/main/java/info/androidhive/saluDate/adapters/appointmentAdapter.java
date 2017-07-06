@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.classes.appointment_processed;
-import info.androidhive.saluDate.classes.speciality;
 
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.speciality_img;
 

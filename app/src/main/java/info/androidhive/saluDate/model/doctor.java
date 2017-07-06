@@ -1,4 +1,6 @@
-package info.androidhive.saluDate.classes;
+package info.androidhive.saluDate.model;
+
+import info.androidhive.saluDate.model.person;
 
 /**
  * Created by Luis on 19/05/2017.
@@ -7,7 +9,7 @@ package info.androidhive.saluDate.classes;
 public class doctor {
     private Integer id;
     private String school_medicine;
-    private person person;
+    private info.androidhive.saluDate.model.person person;
 
     public Integer getId() {
         return id;
