@@ -153,6 +153,10 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.log_out),Toast.LENGTH_LONG).show();
                 LogOut();
                 return true;
+            case R.id.calendar:
+                Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_calendar),Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MenuPrincipalActivity.this, CalendarActivity.class));
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

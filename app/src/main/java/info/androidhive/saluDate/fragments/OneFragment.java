@@ -340,7 +340,7 @@ public class OneFragment extends Fragment{
             String hora=schedules.get(schedulesID.indexOf(currentScheduleDoctor.getSchedule())).getStart_hour();
             String fecha=currentScheduleDoctor.getAvailability_date();
             Log.i(TAG, specialtyName+" "+doctorName+" "+fecha+" "+hora);
-            citas.add(new appointment_processed(doctorName, specialtyName, hora, fecha, appointments.get(i).getStatus(), appointments.get(i).getId()));
+            citas.add(new appointment_processed(doctorName, specialtyName, fecha, hora, appointments.get(i).getStatus(), appointments.get(i).getId()));
         }
         Log.i(TAG, "se generaron citas pa mostrar");
 

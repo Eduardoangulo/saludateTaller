@@ -59,6 +59,7 @@
     <string name="datos_incorrectos">Usuario o contraseña incorrectos</string>
     <string name="log_out">Cerrar Sesión</string>
 
+    <string name="toast_calendar">Calendario</string>
     <string name="current_date">June, 2016</string>
     <string name="add_event">ADD CALENDAR EVENT</string>
     <string name="sun">DOM</string>

@@ -20,15 +20,15 @@ import java.util.Locale;
 
 import info.androidhive.materialtabs.R;
 import info.androidhive.saluDate.classes.appointment_processed;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 
 /**
  * Created by Luis on 06/07/2017.
  */
 
 public class GridAdapter extends ArrayAdapter {
-    private static final String TAG = GridAdapter.class.getSimpleName();
     private LayoutInflater mInflater;
-    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy MM dd", Locale.ENGLISH);
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     private List<Date> monthlyDates;
     private Calendar currentDate;
     private List<appointment_processed> allEvents;
@@ -55,9 +55,9 @@ public class GridAdapter extends ArrayAdapter {
             view = mInflater.inflate(R.layout.single_cell_layout, parent, false);
         }
         if(displayMonth == currentMonth && displayYear == currentYear){
-            view.setBackgroundColor(Color.parseColor("#FF5733"));
-        }else{
             view.setBackgroundColor(Color.parseColor("#cccccc"));
+        }else{
+            view.setBackgroundColor(Color.parseColor("#FFFFFF"));
         }
         //Add day to calendar
         TextView cellNumber = (TextView)view.findViewById(R.id.calendar_date_id);
@@ -67,6 +67,7 @@ public class GridAdapter extends ArrayAdapter {
         Calendar eventCalendar = Calendar.getInstance();
         for(int i = 0; i < allEvents.size(); i++){
             try{
+                Log.i(TAG,"Date appointment_processed " +allEvents.get(i).getDate());
                 eventCalendar.setTime(formatter.parse(allEvents.get(i).getDate()));
             }
             catch(ParseException e){
@@ -75,7 +76,7 @@ public class GridAdapter extends ArrayAdapter {
             }
             if(dayValue == eventCalendar.get(Calendar.DAY_OF_MONTH) && displayMonth == eventCalendar.get(Calendar.MONTH) + 1
                     && displayYear == eventCalendar.get(Calendar.YEAR)){
-                eventIndicator.setBackgroundColor(Color.parseColor("#FF4081"));
+                view.setBackgroundColor(Color.parseColor("#FF5733"));
             }
         }
         return view;
