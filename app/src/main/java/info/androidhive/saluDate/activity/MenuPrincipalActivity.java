@@ -146,9 +146,6 @@ public class MenuPrincipalActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.toast_fichamedica),Toast.LENGTH_LONG).show();
                 startActivity(new Intent(MenuPrincipalActivity.this, FichaMedicaActivity.class));
                 return true;
-            case R.id.ajustes:
-                Toast.makeText(getApplicationContext(),getResources().getString(R.string.action_settings),Toast.LENGTH_LONG).show();
-                return true;
             case R.id.cerrar_sesion:
                 Toast.makeText(getApplicationContext(),getResources().getString(R.string.log_out),Toast.LENGTH_LONG).show();
                 LogOut();

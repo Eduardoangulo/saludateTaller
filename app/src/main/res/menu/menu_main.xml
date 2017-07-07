@@ -3,8 +3,6 @@
 
     <item  android:id="@+id/ficha_medica"
         android:title="@string/title_activity_ficha_medica"/>
-    <item  android:id="@+id/ajustes"
-        android:title="@string/action_settings"/>
     <item  android:id="@+id/cerrar_sesion"
         android:title="@string/log_out"/>
     <item
