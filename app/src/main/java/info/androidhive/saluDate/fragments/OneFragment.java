@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -56,13 +57,14 @@ public class OneFragment extends Fragment{
     private ArrayList<Integer> schedulesID= new ArrayList<>();
     private ArrayList<Integer> appointmentsID= new ArrayList<>();
 
+    private SwipeRefreshLayout refresh;
+
     private ListView rootView;
     private appointmentAdapter adapter1;
 
     public static int posicion;
     public static boolean item_elegido=false;
     public static ArrayList<appointment_processed> citas;
-    public static ActionMode mActionMode;
 
     public OneFragment() {
         // Required empty public constructor
@@ -83,6 +85,15 @@ public class OneFragment extends Fragment{
         rootView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         view.setActivated(true);
 
+        refresh= (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshContent();
+            }
+        });
+        refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+
         adapter1=new appointmentAdapter(getActivity(), R.layout.list_appointment);
         conexion = new api_connection(getContext(), TAG, URL_desarrollo);
         getAppointments(conexion.getRetrofit());
@@ -99,6 +110,18 @@ public class OneFragment extends Fragment{
         });
 
         return view;
+    }
+    private void refreshContent(){
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                conexion.retrofitLoad();
+                if(conexion.getRetrofit()!=null){
+                    getAppointments(conexion.getRetrofit());
+                }
+                refresh.setRefreshing(false);
+            }
+        },1500);
     }
 
     @Override
@@ -182,6 +205,12 @@ public class OneFragment extends Fragment{
     }
 
     public void getAppointments(Retrofit retrofit) {
+
+        if(appointments!=null){
+            appointments.clear();
+            adapter1.clear();
+        }
+
         appointmentService service = retrofit.create(appointmentService.class);
         Call<ArrayList<appointment>> Call = service.obtenerCitas();
         Call.enqueue(new Callback<ArrayList<appointment>>() {

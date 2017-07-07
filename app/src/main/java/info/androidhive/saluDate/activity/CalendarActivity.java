@@ -26,6 +26,7 @@ public class CalendarActivity extends AppCompatActivity {
         try{
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }catch (Exception e){
             e.printStackTrace();
         }

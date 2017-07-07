@@ -2,6 +2,7 @@ package info.androidhive.saluDate.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,8 @@ public class TwoFragment extends Fragment {
     private ArrayList<schedule_doctor> schedule_doctors = new ArrayList<>();
     private ArrayList<schedule> schedules = new ArrayList<>();
 
+    private SwipeRefreshLayout refresh;
+
     private ListView rootView;
     private appointmentAdapter adapter1;
 
@@ -62,13 +65,42 @@ public class TwoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_two, container, false);
         rootView = (ListView) view.findViewById(R.id.list);
         adapter1 = new appointmentAdapter(getActivity(), R.layout.list_appointment);
+
+        refresh= (SwipeRefreshLayout)view.findViewById(R.id.swiperefresh);
+        refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshContent();
+            }
+        });
+        refresh.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
+
         conexion = new api_connection(getContext(), TAG, URL_desarrollo);
         getAppointments(conexion.getRetrofit());
 
         return view;
     }
 
+    private void refreshContent(){
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                conexion.retrofitLoad();
+                if(conexion.getRetrofit()!=null){
+                    getAppointments(conexion.getRetrofit());
+                }
+                refresh.setRefreshing(false);
+            }
+        },1500);
+    }
+
     private void getAppointments(Retrofit retrofit) {
+
+        if(appointments!=null){
+            appointments.clear();
+            adapter1.clear();
+        }
+
         appointmentService service = retrofit.create(appointmentService.class);
         Call<ArrayList<appointment>> Call = service.obtenerCitas();
         Call.enqueue(new Callback<ArrayList<appointment>>() {
