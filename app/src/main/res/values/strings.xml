@@ -69,4 +69,5 @@
     <string name="fri">VIE</string>
     <string name="sat">SAB</string>
     <string name="last_date">30</string>
+    <string name="remember_me">Recordarme</string>
 </resources>

@@ -1,6 +1,9 @@
 package info.androidhive.saluDate.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,11 +11,14 @@ import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import info.androidhive.materialtabs.R;
@@ -41,6 +47,11 @@ public class LoginActivity extends AppCompatActivity {
     private EditText editTextPass;
     private Button btnSimpleTabs;
     private TextView txtOvidarContra;
+    private String username,password;
+    private CheckBox saveLoginCheckBox;
+    private SharedPreferences loginPreferences;
+    private SharedPreferences.Editor loginPrefsEditor;
+    private Boolean saveLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +67,9 @@ public class LoginActivity extends AppCompatActivity {
 
         btnSimpleTabs = (Button) findViewById(R.id.btnIniciarSesion);
         editTextUser = (EditText) findViewById(R.id.edtxtUser);
+        saveLoginCheckBox = (CheckBox)findViewById(R.id.saveLoginCheckBox);
+        loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
         txtOvidarContra=(TextView)findViewById(R.id.txtOvidarContra);
         txtOvidarContra.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,21 +77,41 @@ public class LoginActivity extends AppCompatActivity {
                 showAlertDialog();
             }
         });
-
         editTextPass = (EditText) findViewById(R.id.edtxtPass);
         editTextPass.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         editTextUser.setTransformationMethod(new NumericKeyBoardTransformationMethod());
         //editTextPass.setTransformationMethod(new NumericKeyBoardTransformationMethod());
+        saveLogin = loginPreferences.getBoolean("saveLogin", false);
+        if (saveLogin == true) {
+            editTextUser.setText(loginPreferences.getString("username", ""));
+            editTextPass.setText(loginPreferences.getString("password", ""));
+            saveLoginCheckBox.setChecked(true);
+        }
 
         txtOvidarContra=(TextView)findViewById(R.id.txtOvidarContra);
 
-            obtenerDatos(conexion.getRetrofit());
-            Toast.makeText(LoginActivity.this,getResources().getString(R.string.connection_error),Toast.LENGTH_LONG);
+        obtenerDatos(conexion.getRetrofit());
+        Toast.makeText(LoginActivity.this,getResources().getString(R.string.connection_error),Toast.LENGTH_LONG);
 
 
         btnSimpleTabs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextUser.getWindowToken(), 0);
+
+                username = editTextUser.getText().toString();
+                password = editTextPass.getText().toString();
+
+                if (saveLoginCheckBox.isChecked()) {
+                    loginPrefsEditor.putBoolean("saveLogin", true);
+                    loginPrefsEditor.putString("username", username);
+                    loginPrefsEditor.putString("password", password);
+                    loginPrefsEditor.commit();
+                } else {
+                    loginPrefsEditor.clear();
+                    loginPrefsEditor.commit();
+                }
                 attemptLogin(pacientes);
                 obtenerDatos(conexion.getRetrofit());
             }
