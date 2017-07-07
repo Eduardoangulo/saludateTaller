@@ -63,7 +63,6 @@ public class GridAdapter extends ArrayAdapter {
         TextView cellNumber = (TextView)view.findViewById(R.id.calendar_date_id);
         cellNumber.setText(String.valueOf(dayValue));
         //Add events to the calendar
-        TextView eventIndicator = (TextView)view.findViewById(R.id.event_id);
         Calendar eventCalendar = Calendar.getInstance();
         for(int i = 0; i < allEvents.size(); i++){
             try{
