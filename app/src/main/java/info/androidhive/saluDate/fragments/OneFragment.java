@@ -38,6 +38,7 @@ import static info.androidhive.saluDate.ConexionService.VariablesGlobales.LogedI
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.conexion;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.TAG;
 import static info.androidhive.saluDate.ConexionService.VariablesGlobales.URL_desarrollo;
+import static info.androidhive.saluDate.ConexionService.VariablesGlobales.historialCitas;
 
 public class OneFragment extends Fragment{
 
@@ -343,7 +344,7 @@ public class OneFragment extends Fragment{
             citas.add(new appointment_processed(doctorName, specialtyName, fecha, hora, appointments.get(i).getStatus(), appointments.get(i).getId()));
         }
         Log.i(TAG, "se generaron citas pa mostrar");
-
+        historialCitas.addAll(citas);
         adapter1.addAll(citas);
         rootView.setAdapter(adapter1);
     }

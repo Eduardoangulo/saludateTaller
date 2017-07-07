@@ -84,7 +84,7 @@ public class CalendarCustomView extends LinearLayout{
         calendarGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(context, "Clicked " + position, Toast.LENGTH_LONG).show();
+                //Toast.makeText(context, "Clicked " + position, Toast.LENGTH_LONG).show();
             }
         });
     }

@@ -241,7 +241,7 @@ public class TwoFragment extends Fragment {
             citas.add(new appointment_processed(doctorName, specialtyName, fecha, hora, appointments.get(i).getStatus(), appointments.get(i).getId()));
         }
         Log.i(TAG, "se generaron citas pa mostrar");
-        historialCitas=citas;
+        historialCitas.addAll(citas);
         adapter1.addAll(citas);
         rootView.setAdapter(adapter1);
     }

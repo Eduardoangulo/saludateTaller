@@ -31,6 +31,5 @@ public class CalendarActivity extends AppCompatActivity {
         }
         CalendarCustomView mView = (CalendarCustomView)findViewById(R.id.custom_calendar);
 
-
     }
 }
